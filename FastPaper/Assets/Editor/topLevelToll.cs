@@ -24,7 +24,7 @@ public class topLevelToll{
     {
         var selected = Selection.activeObject;
         EditorApplication.OpenSceneAdditive(AssetDatabase.GetAssetPath(selected));
-}
+    }
 
 [MenuItem("Assets/Create/Add Configuration")]
     private static void AddConfig()

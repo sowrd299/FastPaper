@@ -8,10 +8,16 @@ public class cardScript : MonoBehaviour {
     public GameObject obj;
     public int experience;
     
-    [SerializeField] public int Level
+    public int Level
     {
-        get{return experience/750;}
+        get{ return experience/750; }
     }
+
+    void Start()
+    {
+        obj = gameObject;
+    }
+
 
     public void BuildObject()
     {
