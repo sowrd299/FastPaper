@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CardSlots
+    uniqueID: 286963165
+    locked: 0
+  - name: Cards
+    uniqueID: 3081646753
+    locked: 0

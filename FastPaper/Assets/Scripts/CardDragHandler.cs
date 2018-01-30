@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,13 +9,13 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public LayerMask positionLayer;
 	[SerializeField]private Vector3 offset;
 	private cardScript card;
-	private BoxCollider2D col;
+	private BoxCollider2D collider2D;
 
 	void Start () 
 	{
 		offset = new Vector3();
 		card = GetComponent<cardScript>();
-		col = GetComponent<BoxCollider2D>();
+		collider2D = GetComponent<BoxCollider2D>();
 	}
 
 	public void OnBeginDrag(PointerEventData p)
@@ -36,26 +37,25 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnEndDrag(PointerEventData p)
 	{
-		/*
-		Vector3 camPos = p.pressEventCamera.gameObject.transform.position;
-		Debug.Log(camPos);
-		camPos.x += transform.position.x;
-		camPos.y += transform.position.y;
-		*/
-		Vector3 camPos = transform.position;
-		Debug.Log(camPos);
-
-		Debug.DrawLine(camPos, Vector2.zero, Color.red, 1f);
-
-		col.enabled = false;
-		RaycastHit2D hit = Physics2D.Raycast(camPos, Vector3.forward, positionLayer);
-		col.enabled = true;
-		if(hit.collider != null)
+		Vector3 size = collider2D.bounds.size;
+		collider2D.enabled = false;
+		RaycastHit2D[] hit = new RaycastHit2D[4];
+		hit[0] = Physics2D.Raycast(transform.position, Vector3.forward, positionLayer);
+		hit[1] = Physics2D.Raycast(transform.position + Vector3.right*size.x, Vector3.forward, positionLayer);
+		hit[2] = Physics2D.Raycast(transform.position + Vector3.down*size.y+Vector3.right*size.x, Vector3.forward, positionLayer);
+		hit[3] = Physics2D.Raycast(transform.position + Vector3.down*size.y, Vector3.forward, positionLayer);
+		collider2D.enabled = true;
+		bool done = false;
+		Array.ForEach(hit, (ray) =>
 		{
-			Debug.Log("hit");
-			Debug.Log(hit.collider.gameObject.name);
-			gameObject.transform.SetParent(hit.collider.gameObject.transform);
-		}
+			if(!done && ray.collider != null && ray.collider.gameObject.GetComponent<DragArea>() != null)
+			{
+				Debug.Log("hit");
+				done = true;
+				ray.collider.gameObject.GetComponent<DragArea>().addCard(gameObject);
+			}
+		});
+		
 	}
 
 }

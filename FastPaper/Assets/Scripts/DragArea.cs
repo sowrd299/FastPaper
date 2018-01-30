@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragArea : MonoBehaviour
+public abstract class DragArea : MonoBehaviour
 {
-
+	public abstract void addCard(GameObject toAdd);
 }
