@@ -2,43 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour 
+public class Deck : DragArea 
 {
 	public int deckSize;
 	public GameObject tempCard;
+	public Vector3 offScreen;
 
 	public static int t = 0;
 
-	public Queue<cardScript> cards;
+	public Queue<GameObject> cards;
 
 	void Start ()
 	{
-		cards = new Queue<cardScript>();
+		cards = new Queue<GameObject>();
 		shuffleDeck();
 	}
 
 	public void shuffleDeck()
 	{
-		List<cardScript> temp = new List<cardScript>();
+		List<GameObject> temp = new List<GameObject>();
 		while(cards.Count != 0)
 			temp.Add(cards.Dequeue());
 		while(temp.Count != 0)
 		{
-			cardScript toRemove = temp[Random.Range(0, temp.Count)];
+			GameObject toRemove = temp[Random.Range(0, temp.Count)];
 			cards.Enqueue(toRemove);
 			temp.Remove(toRemove);
 		}
 	}
 
-	public cardScript drawCard()
+	public GameObject drawCard()
 	{
-		cardScript temp = cards.Dequeue();
+		GameObject temp = cards.Dequeue();
 		return temp;
 	}
 
-	public void addCard()
+	public override void addCard(GameObject toAdd)
 	{
-		cards.Enqueue(new cardScript(t++));
+		toAdd.transform.position = offScreen;
+		cards.Enqueue(toAdd);
 	} 
 
 	void drawCards(int numCards)

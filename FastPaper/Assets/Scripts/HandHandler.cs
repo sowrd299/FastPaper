@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class HandHandler : DragArea
 
 	private BoxCollider2D collider2D;
 	private GameObject[] handSlots;
+	private List<cardScript> cardsInHand;
 	private int currentIndex;
 
 	void Start () 
@@ -17,6 +19,14 @@ public class HandHandler : DragArea
 		currentIndex = 0;
 		handSlots = new GameObject[handSize];
 		collider2D = GetComponent<BoxCollider2D>();
+		cardsInHand = new List<cardScript>();
+		UpdateSlots();
+	}
+
+	public void UpdateSlots()
+	{
+		Array.ForEach(handSlots, (val) => { Destroy(val); });
+
 		float lX = collider2D.bounds.ClosestPoint(Vector2.left*100).x;
 		float rX = collider2D.bounds.ClosestPoint(Vector2.right*100).x;
 		float increment = Mathf.Abs(lX - rX)/handSize;
@@ -34,9 +44,17 @@ public class HandHandler : DragArea
 
 	public override void addCard(GameObject toAdd)
 	{
+		if(toAdd.GetComponent<cardScript>() == null)
+			return;
+		cardScript card = toAdd.GetComponent<cardScript>();
+		cardsInHand.Add(card);
 		toAdd.transform.SetParent(this.transform);
 		Vector3 currSlot = handSlots[currentIndex++].transform.position;
 		toAdd.transform.position = new Vector3(currSlot.x, currSlot.y, toAdd.transform.position.z);
 	}
 	
+	public List<cardScript> getCards()
+	{
+		return cardsInHand;
+	}
 }

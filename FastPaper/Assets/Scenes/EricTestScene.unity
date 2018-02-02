@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   handSize: 5
   handSlotPrefab: {fileID: 1418031771736744, guid: 2ac49168403491f4fadb5e08ca965db4,
     type: 2}
-  cardSlotWidth: 2.2
+  cardSlotWidth: 1.6
 --- !u!1 &184468436
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckSize: 5
   tempCard: {fileID: 259981966}
+  offScreen: {x: 100, y: 100, z: 0}
 --- !u!1 &507279550
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,11 +425,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4435558262388660, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.3489165
+      value: -0.58
       objectReference: {fileID: 0}
     - target: {fileID: 4435558262388660, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.042870045
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4435558262388660, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -656,11 +657,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.09
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.44
+      value: -2.76
       objectReference: {fileID: 0}
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -736,7 +737,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -769,6 +770,10 @@ Prefab:
     - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
       propertyPath: m_LocalScale.y
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156174226001320, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 8.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114296993917505540, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}

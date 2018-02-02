@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardType { red, green, blue};
+
 public class cardScript : MonoBehaviour 
 {
 
-    public enum Color { red, green, blue};
-
     public GameObject obj;
     public int experience;
-    public Color color;
+    public CardType type;
     
     public int Level
     {

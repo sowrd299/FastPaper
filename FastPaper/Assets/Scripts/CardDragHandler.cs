@@ -40,6 +40,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		Vector3 size = collider2D.bounds.size;
 		collider2D.enabled = false;
 		RaycastHit2D[] hit = new RaycastHit2D[4];
+		/*Debug.Log(transform.position);
+		Debug.Log(transform.position + Vector3.right*size.x);
+		Debug.Log(transform.position + Vector3.down*size.y+Vector3.right*size.x);
+		Debug.Log(transform.position + Vector3.down*size.y);*/
 		hit[0] = Physics2D.Raycast(transform.position, Vector3.forward, positionLayer);
 		hit[1] = Physics2D.Raycast(transform.position + Vector3.right*size.x, Vector3.forward, positionLayer);
 		hit[2] = Physics2D.Raycast(transform.position + Vector3.down*size.y+Vector3.right*size.x, Vector3.forward, positionLayer);
@@ -48,11 +52,14 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		bool done = false;
 		Array.ForEach(hit, (ray) =>
 		{
-			if(!done && ray.collider != null && ray.collider.gameObject.GetComponent<DragArea>() != null)
+			if(!done && ray.collider != null)
 			{
-				Debug.Log("hit");
-				done = true;
-				ray.collider.gameObject.GetComponent<DragArea>().addCard(gameObject);
+				//Debug.Log("hit " + ray.collider.gameObject.name);
+				if(ray.collider.gameObject.GetComponent<DragArea>() != null)
+				{
+					done = true;
+					ray.collider.gameObject.GetComponent<DragArea>().addCard(gameObject);
+				}
 			}
 		});
 		

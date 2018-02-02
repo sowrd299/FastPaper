@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Deck))]
+[CustomEditor(typeof(HandHandler))]
 public class TestEditor : Editor 
 {
-	public cardScript lastCardDrawn;
 
 	public override void OnInspectorGUI()
 	{
-		Deck myTarget = (Deck)target;
+		HandHandler myTarget = (HandHandler)target;
 		DrawDefaultInspector();
-/*		Queue<cardScript> temp = myTarget.cards;
-		for(int x = 0; temp.Count > 0; x++)
-			EditorGUILayout.LabelField("Card"+x, temp.Dequeue().name);
-*/		if(GUILayout.Button("TestDraw"))
+
+		List<cardScript> cards = myTarget.getCards();
+		for(int x = 0; x < cards.Count; x++)
+			EditorGUILayout.LabelField("Card"+x, cards[x] != null ? cards[x].name : "empty");
+		if(GUILayout.Button("Update Hands"))
 		{
-			lastCardDrawn = myTarget.drawCard();
-			EditorGUILayout.LabelField("lastcarddrawn", lastCardDrawn.name);
+			myTarget.UpdateSlots();
 		}
-		if(GUILayout.Button("AddCard"))
-		{
-			myTarget.addCard();
-		}
-		EditorGUILayout.LabelField("lastcarddrawn", lastCardDrawn == null ? "none" : lastCardDrawn.name);
     }
 }
