@@ -28,10 +28,10 @@ public class FieldHandler : DragArea
 			{
 				toUse = red;
 			} break;
-		} 
-		toAdd.transform.SetParent(toUse.transform, true);
-		toAdd.transform.position = new Vector3(0,0,-0.2f);
-		toAdd.transform.position = new Vector3(0,0,-0.2f);
+		}
+		
+		toAdd.transform.SetParent(toUse.transform);
+		toAdd.transform.position = new Vector3(toUse.transform.position.x,toUse.transform.position.y,-0.2f);
 	}
 
 }

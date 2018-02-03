@@ -52,6 +52,11 @@ public class HandHandler : DragArea
 		Vector3 currSlot = handSlots[currentIndex++].transform.position;
 		toAdd.transform.position = new Vector3(currSlot.x, currSlot.y, toAdd.transform.position.z);
 	}
+
+	public void removeCard()
+	{
+		
+	}
 	
 	public List<cardScript> getCards()
 	{
