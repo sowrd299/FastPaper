@@ -50,12 +50,12 @@ public class HandHandler : DragArea
 		cardsInHand.Add(card);
 		toAdd.transform.SetParent(this.transform);
 		Vector3 currSlot = handSlots[currentIndex++].transform.position;
-		toAdd.transform.position = new Vector3(currSlot.x, currSlot.y, toAdd.transform.position.z);
+		toAdd.transform.position = new Vector3(currSlot.x, currSlot.y, -0.2f);
 	}
 
 	public void removeCard()
 	{
-		
+
 	}
 	
 	public List<cardScript> getCards()

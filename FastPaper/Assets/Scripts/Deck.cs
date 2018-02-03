@@ -40,6 +40,7 @@ public class Deck : DragArea
 	public override void addCard(GameObject toAdd)
 	{
 		toAdd.transform.position = offScreen;
+		toAdd.transform.SetParent(gameObject.transform);
 		cards.Enqueue(toAdd);
 	} 
 
