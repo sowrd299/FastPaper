@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldHandler : DragArea
+public class FieldHandler : MonoBehaviour, DragArea
 {
 	public GameObject red;
 	public GameObject blue;
 	public GameObject green;
 
-	public override void addCard(GameObject toAdd)
+	public void addCard(GameObject toAdd)
 	{
 		if(toAdd.GetComponent<cardScript>() == null)
 			return;

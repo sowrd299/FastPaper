@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : DragArea 
+public class Deck : MonoBehaviour, DragArea 
 {
 	public int deckSize;
 	public GameObject tempCard;
@@ -15,11 +15,40 @@ public class Deck : DragArea
 	void Start ()
 	{
 		cards = new Queue<GameObject>();
-		shuffleDeck();
+		for(int x = 0; x < deckSize; x++)
+		{
+			GameObject temp = Instantiate(tempCard, offScreen, Quaternion.identity);
+			temp.name = "Card#" + x;
+			cards.Enqueue(temp);
+		}
+		//shuffleDeck();
+	}
+
+	public void validate()
+	{
+		Queue<GameObject> temp = new Queue<GameObject>();
+		foreach (var item in cards)
+		{
+			if(item.GetComponent<cardScript>() != null)
+				temp.Enqueue(item);
+			else
+				Destroy(item);
+		}
+		cards = temp;
+	}
+
+	public Queue<cardScript> getCards()
+	{
+		validate();
+		Queue<cardScript> temp = new Queue<cardScript>();
+		foreach(var item in cards)
+			temp.Enqueue(item.GetComponent<cardScript>());
+		return temp;
 	}
 
 	public void shuffleDeck()
 	{
+		validate();
 		List<GameObject> temp = new List<GameObject>();
 		while(cards.Count != 0)
 			temp.Add(cards.Dequeue());
@@ -37,7 +66,7 @@ public class Deck : DragArea
 		return temp;
 	}
 
-	public override void addCard(GameObject toAdd)
+	public void addCard(GameObject toAdd)
 	{
 		toAdd.transform.position = offScreen;
 		toAdd.transform.SetParent(gameObject.transform);

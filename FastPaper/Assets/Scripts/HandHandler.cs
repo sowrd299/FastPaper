@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandHandler : DragArea
+public class HandHandler : MonoBehaviour, DragArea
 {
 	public int handSize;
 	public GameObject handSlotPrefab;
@@ -42,7 +42,7 @@ public class HandHandler : DragArea
 		}
 	}
 
-	public override void addCard(GameObject toAdd)
+	public void addCard(GameObject toAdd)
 	{
 		if(toAdd.GetComponent<cardScript>() == null)
 			return;

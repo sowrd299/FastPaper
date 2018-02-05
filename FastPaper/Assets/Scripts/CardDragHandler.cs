@@ -20,6 +20,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnBeginDrag(PointerEventData p)
 	{
+		transform.position.Set(transform.position.x, transform.position.y , -0.2f);
 		Vector2 clickPos = p.position;
 		Camera c = p.pressEventCamera;
 		Vector3 temp = c.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, 0));
@@ -31,7 +32,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		card.experience += 2;
 		Vector2 clickPos = p.position;
 		Camera c = p.pressEventCamera;
-		Vector3 temp = c.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, 0));
+		Vector3 temp = c.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, -0.2f));
 		transform.position = temp + offset;
 	}
 

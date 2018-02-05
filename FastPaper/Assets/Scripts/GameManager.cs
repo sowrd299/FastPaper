@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if(Player1Health >= 0 || Player2Health >= 0)
+		if(Player1Health <= 0 || Player2Health <= 0)
 			GameOver();
 
 		bool toAdvance = false;
@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
 			case Turn.p1Attack:
 			{
 				toAdvance = true;
-
 			} break;
 			case Turn.p2Pip:
 			{
