@@ -45,7 +45,7 @@
 				// sample the texture
 				half2 uv = i.uv;
                 half noiseVal = tex2D(_noise, uv).r;
-				uv.x = uv.x + noiseVal * sin(_Time.y* _SpeedX) / _Mitigation;
+				uv.x += (_Time.y* _SpeedX) / _Mitigation;
 				uv.y = uv.y + noiseVal * sin(_Time.y* _SpeedY) / _Mitigation;
 				fixed4 col = tex2D(_background,uv);
 				// apply fog
@@ -79,9 +79,7 @@
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			sampler2D _background,_noise;
-			float4 _background_ST,_noise_ST;
-			float _SpeedX,_SpeedY,_Mitigation;
+		
 			
 			v2f vert (appdata v)
 			{
@@ -103,10 +101,7 @@
 				// sample the texture
 				float alpha =GetAlpha(i);
 				clip(alpha-0.5);
-				half2 uv = i.uv;
-                half noiseVal = tex2D(_noise, uv).r;
-				uv.x = uv.x + noiseVal * sin(_Time.y* _SpeedX) / _Mitigation;
-				uv.y = uv.y + noiseVal * sin(_Time.y* _SpeedY) / _Mitigation;
+				
 				fixed4 col =fixed4(0,0,0,0);
 				// apply fog
 				return col;
