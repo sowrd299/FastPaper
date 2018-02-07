@@ -824,32 +824,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661174a7c1605914aba4e0b3c3f7e9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1MaxHealth: 20
-  Player2MaxHealth: 20
-  Player1Health: 20
-  Player2Health: 20
-  Player1Pip: 0
-  Player2Pip: 0
-  onAddPip:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onAttack:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onStartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  playerOnePrefab: {fileID: 11400000, guid: 57c19280b7aba3347af98cc3c9cb43da, type: 2}
+  playerTwoPrefab: {fileID: 11400000, guid: edec968610f3f7b4bbf2dbabfbc41bca, type: 2}
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
   currTurn: 0
 --- !u!4 &859050845
 Transform:
@@ -857,7 +835,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 859050843}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -9,18 +9,16 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 
-	public int Player1MaxHealth = 20;
-	public int Player2MaxHealth = 20;
+	public ScriptableObject playerOnePrefab;
+	public ScriptableObject playerTwoPrefab;
 
-	[HideInInspector]public int Player1Health;
-	[HideInInspector]public int Player2Health;
-	public int Player1Pip;
-	public int Player2Pip;
+	[HideInInspector]public PlayerInfo playerOne; //= new Player();
+	[HideInInspector]public PlayerInfo playerTwo; //= ScriptableObject.CreateInstance<Player>();
 
-	public UnityEvent onAddPip;
+	/*public UnityEvent onAddPip;
 	public UnityEvent onAttack;
 	public UnityEvent onStartOfTurn;
-	public UnityEvent onEndOfTurn;
+	public UnityEvent onEndOfTurn;*/
 
 	[SerializeField]private Turn currTurn;
 
@@ -30,8 +28,10 @@ public class GameManager : MonoBehaviour
 			Destroy(this.gameObject);
 		instance = this;
 		DontDestroyOnLoad(gameObject);
-		Player1Health = Player1MaxHealth;
-		Player2Health = Player2MaxHealth;
+
+		playerOne = Object.Instantiate(playerOnePrefab) as PlayerInfo;
+		playerTwo = Object.Instantiate(playerTwoPrefab) as PlayerInfo;
+
 		currTurn = Turn.p1Pip;
 	}
 
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if(Player1Health <= 0 || Player2Health <= 0)
+		if(playerOne.currentHealth <= 0 || playerTwo.currentHealth <= 0)
 			GameOver();
 
 		bool toAdvance = false;
@@ -83,12 +83,12 @@ public class GameManager : MonoBehaviour
 	{
 		if(whichPlayer == 1)
 		{
-			Player1Pip++;
+			playerOne.pips++;
 			return true;
 		}
 		else if(whichPlayer == 2)
 		{
-			Player2Pip++;
+			playerTwo.pips++;
 			return true;	
 		}
 		return false;
