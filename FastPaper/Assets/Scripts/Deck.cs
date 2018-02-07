@@ -73,7 +73,7 @@ public class Deck : MonoBehaviour, DragArea
 		cards.Enqueue(toAdd);
 	} 
 
-	void drawCards(int numCards)
+	public void drawCards(int numCards)
 	{
 
 	}

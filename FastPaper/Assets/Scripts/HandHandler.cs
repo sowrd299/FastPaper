@@ -9,7 +9,7 @@ public class HandHandler : MonoBehaviour, DragArea
 	public GameObject handSlotPrefab;
 	public float cardSlotWidth;
 
-	private BoxCollider2D collider2D;
+	private new BoxCollider2D collider2D;
 	private GameObject[] handSlots;
 	private List<cardScript> cardsInHand;
 	private int currentIndex;

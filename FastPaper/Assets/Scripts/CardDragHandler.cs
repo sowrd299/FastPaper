@@ -9,7 +9,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public LayerMask positionLayer;
 	[SerializeField]private Vector3 offset;
 	private cardScript card;
-	private BoxCollider2D collider2D;
+	private new BoxCollider2D collider2D;
 
 	void Start () 
 	{
