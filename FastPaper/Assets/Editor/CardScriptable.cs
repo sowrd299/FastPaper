@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "card", menuName = "NewCard")]
-public class CardScriptable : ScriptableObject {
+public class CardScriptable : ScriptableObject 
+{
 	public string name;
-	public string flavorTest;
-	public int lifeTime;
+	public string flavorText;
+	public string textBox;
+	public int attack;
+	public int countdown;
+	public int cost;
 	public Sprite picture;
+
+	public List<TriggeredAbility> abilities;
 
 }
