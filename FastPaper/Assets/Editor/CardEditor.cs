@@ -20,6 +20,8 @@ public class CardEditor : EditorWindow
 
 	void OnGUI()
 	{
+		if(EditorApplication.isPlayingOrWillChangePlaymode)
+			return;
 		if(toCreate == null)
 		{
 			toCreate = ScriptableObject.CreateInstance<CardScriptable>();

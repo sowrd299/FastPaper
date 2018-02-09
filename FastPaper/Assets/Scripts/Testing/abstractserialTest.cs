@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Effect
-{
-	void OnTrigger(InSceneCard attachedTo);
+public class abstractserialTest : MonoBehaviour {
+
+	// Use this for initialization
+
 }

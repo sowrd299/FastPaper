@@ -29,7 +29,7 @@ public class Deck : MonoBehaviour, DragArea
 		Queue<GameObject> temp = new Queue<GameObject>();
 		foreach (var item in cards)
 		{
-			if(item.GetComponent<cardScript>() != null)
+			if(item.GetComponent<InSceneCard>() != null)
 				temp.Enqueue(item);
 			else
 				Destroy(item);
@@ -37,12 +37,12 @@ public class Deck : MonoBehaviour, DragArea
 		cards = temp;
 	}
 
-	public Queue<cardScript> getCards()
+	public Queue<InSceneCard> getCards()
 	{
 		validate();
-		Queue<cardScript> temp = new Queue<cardScript>();
+		Queue<InSceneCard> temp = new Queue<InSceneCard>();
 		foreach(var item in cards)
-			temp.Enqueue(item.GetComponent<cardScript>());
+			temp.Enqueue(item.GetComponent<InSceneCard>());
 		return temp;
 	}
 

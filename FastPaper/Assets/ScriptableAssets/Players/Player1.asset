@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: Player1
   m_EditorClassIdentifier: 
   playerName: Player
-  playerDeck: {fileID: 0}
-  playerHand: {fileID: 0}
+  playerDeck: {fileID: 1381034302020986, guid: eea113f56b651c04cb3c63ec13c41821, type: 2}
+  playerHand: {fileID: 1444762095745484, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
+  playerField: {fileID: 0}
   pips: 0
   maxHealth: 12
   currentHealth: 12

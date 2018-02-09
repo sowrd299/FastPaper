@@ -8,13 +8,13 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
 	public LayerMask positionLayer;
 	[SerializeField]private Vector3 offset;
-	private cardScript card;
+	private InSceneCard card;
 	private new BoxCollider2D collider2D;
 
 	void Start () 
 	{
 		offset = new Vector3();
-		card = GetComponent<cardScript>();
+		card = GetComponent<InSceneCard>();
 		collider2D = GetComponent<BoxCollider2D>();
 	}
 
@@ -29,7 +29,6 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnDrag(PointerEventData p)
 	{
-		card.experience += 2;
 		Vector2 clickPos = p.position;
 		Camera c = p.pressEventCamera;
 		Vector3 temp = c.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, -0.2f));

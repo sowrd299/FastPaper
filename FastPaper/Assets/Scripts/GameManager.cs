@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum Turn { p1Pip, p1Play, p1Attack, p2Pip, p2Play, p2Attack }
+public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack }
+public enum WhichPlayer { one = 1, two = 2 }
 
 public class GameManager : MonoBehaviour 
 {
@@ -12,13 +14,19 @@ public class GameManager : MonoBehaviour
 	public ScriptableObject playerOnePrefab;
 	public ScriptableObject playerTwoPrefab;
 
-	[HideInInspector]public PlayerInfo playerOne; //= new Player();
-	[HideInInspector]public PlayerInfo playerTwo; //= ScriptableObject.CreateInstance<Player>();
+	[HideInInspector]public PlayerInfo playerOne;
+	[HideInInspector]public PlayerInfo playerTwo;
+	
+	public PlayerEvent onStartOfTurn;
+	public PlayerEvent onDrawCard;
+	public PlayerEvent onAddPip;	
+	public CardEvent onSpiritPlay;
+	public CardEvent onSpiritFade;
+	public CardEvent onAttack;
+	public CardEvent onDealDamage;
+	public PlayerEvent onEndOfTurn;
 
-	/*public UnityEvent onAddPip;
-	public UnityEvent onAttack;
-	public UnityEvent onStartOfTurn;
-	public UnityEvent onEndOfTurn;*/
+	public bool canPlay = false;
 
 	[SerializeField]private Turn currTurn;
 
@@ -29,69 +37,96 @@ public class GameManager : MonoBehaviour
 		instance = this;
 		DontDestroyOnLoad(gameObject);
 
-		playerOne = Object.Instantiate(playerOnePrefab) as PlayerInfo;
-		playerTwo = Object.Instantiate(playerTwoPrefab) as PlayerInfo;
+		playerOne = UnityEngine.Object.Instantiate(playerOnePrefab) as PlayerInfo;
+		playerTwo = UnityEngine.Object.Instantiate(playerTwoPrefab) as PlayerInfo;
 
-		currTurn = Turn.p1Pip;
+		SetupEvents();
+
+		currTurn = Turn.p1Draw;
+
+		StartCoroutine(runGame());
+	}
+
+	void SetupEvents()
+	{
+		onStartOfTurn = new PlayerEvent();
+		onDrawCard = new PlayerEvent();
+		onAddPip = new PlayerEvent();	
+		onSpiritPlay = new CardEvent();
+		onSpiritFade = new CardEvent();
+		onAttack = new CardEvent();
+		onDealDamage = new CardEvent();
+		onEndOfTurn = new PlayerEvent();
 	}
 
 	public void advanceTurn()
 	{
+		Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
 		currTurn++;
 		if(currTurn > Turn.p2Attack)
 			currTurn = Turn.p1Pip;
+	}
+
+	IEnumerator runGame()
+	{
+		while(true)
+		{
+			//P1 start of turn
+			onStartOfTurn.Invoke(WhichPlayer.one);
+			//P1 draw
+			DrawCards(WhichPlayer.one);
+			advanceTurn();
+			//P1 gain pip
+			AddPips(WhichPlayer.one);
+			advanceTurn();
+			//P1 play
+			canPlay = true;
+			yield return new WaitUntil( () => currTurn != Turn.p1Play);
+			canPlay = false;
+			//P1 attack
+			yield return new WaitUntil( () => currTurn != Turn.p1Attack);
+			//P1 end of turn
+			onEndOfTurn.Invoke(WhichPlayer.one);
+			
+			//P2 start of turn
+			onStartOfTurn.Invoke(WhichPlayer.two);
+			//P2 draw
+			DrawCards(WhichPlayer.two);
+			advanceTurn();
+			//P2 gain pip
+			AddPips(WhichPlayer.two);
+			advanceTurn();
+			//P2 play
+			yield return new WaitUntil( () => currTurn != Turn.p2Play);
+			//P2 attack
+			yield return new WaitUntil( () => currTurn != Turn.p2Attack);
+			//P2 end of turn
+			onEndOfTurn.Invoke(WhichPlayer.two);
+		}
+		
 	}
 
 	void Update()
 	{
 		if(playerOne.currentHealth <= 0 || playerTwo.currentHealth <= 0)
 			GameOver();
-
-		bool toAdvance = false;
-		switch(currTurn)
-		{
-			case Turn.p1Pip:
-			{
-				toAdvance = AddPips(1);
-			} break;
-			case Turn.p1Play:
-			{
-				toAdvance = false;
-			} break;
-			case Turn.p1Attack:
-			{
-				toAdvance = true;
-			} break;
-			case Turn.p2Pip:
-			{
-				toAdvance = AddPips(2);
-			} break;
-			case Turn.p2Play:
-			{
-				toAdvance = false;
-			} break;
-			case Turn.p2Attack:
-			{
-				toAdvance = true;
-			} break;
-		}
-		if(toAdvance)
-			advanceTurn();
 	}
 
-	bool AddPips(int whichPlayer)
+	void AddPips(WhichPlayer p)
 	{
-		if(whichPlayer == 1)
-		{
+		if(p == WhichPlayer.one)
 			playerOne.pips++;
-			return true;
-		}
-		else if(whichPlayer == 2)
-		{
+		else
 			playerTwo.pips++;
-			return true;	
-		}
-		return false;
+		onAddPip.Invoke(p);
+	}
+
+	void DrawCards(WhichPlayer p, int number = 1)
+	{
+		if(p == WhichPlayer.one)
+		return;
+		onDrawCard.Invoke(p);
+
 	}
 
 	void GameOver()

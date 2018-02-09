@@ -10,21 +10,21 @@ public class FieldHandler : MonoBehaviour, DragArea
 
 	public void addCard(GameObject toAdd)
 	{
-		if(toAdd.GetComponent<cardScript>() == null)
+		if(toAdd.GetComponent<InSceneCard>() == null)
 			return;
-		cardScript card = toAdd.GetComponent<cardScript>();
+		InSceneCard card = toAdd.GetComponent<InSceneCard>();
 		GameObject toUse = null;
-		switch(card.type)
+		switch(card.cardInfo.type)
 		{
-			case CardType.blue:
+			case CardType.hit:
 			{
 				toUse = blue;
 			} break;
-			case CardType.green:
+			case CardType.block:
 			{
 				toUse = green;
 			} break;
-			case CardType.red:
+			case CardType.grab:
 			{
 				toUse = red;
 			} break;

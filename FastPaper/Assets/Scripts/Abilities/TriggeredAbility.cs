@@ -21,7 +21,7 @@ public class TriggeredAbility
 		{
 			case PossibleEffects.Draw:
 			{
-				effect = new Draw(3);
+				effect = new Draw(1);
 			} break;
 			default:
 			{
@@ -36,6 +36,8 @@ public class TriggeredAbility
 			} break;
 		}
 	}
+
+	
 
 	public override string ToString()
 	{

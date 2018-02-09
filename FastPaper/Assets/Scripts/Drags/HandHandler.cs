@@ -11,7 +11,7 @@ public class HandHandler : MonoBehaviour, DragArea
 
 	private new BoxCollider2D collider2D;
 	private GameObject[] handSlots;
-	private List<cardScript> cardsInHand;
+	private List<InSceneCard> cardsInHand;
 	private int currentIndex;
 
 	void Start () 
@@ -19,7 +19,7 @@ public class HandHandler : MonoBehaviour, DragArea
 		currentIndex = 0;
 		handSlots = new GameObject[handSize];
 		collider2D = GetComponent<BoxCollider2D>();
-		cardsInHand = new List<cardScript>();
+		cardsInHand = new List<InSceneCard>();
 		UpdateSlots();
 	}
 
@@ -44,9 +44,9 @@ public class HandHandler : MonoBehaviour, DragArea
 
 	public void addCard(GameObject toAdd)
 	{
-		if(toAdd.GetComponent<cardScript>() == null)
+		if(toAdd.GetComponent<InSceneCard>() == null)
 			return;
-		cardScript card = toAdd.GetComponent<cardScript>();
+		InSceneCard card = toAdd.GetComponent<InSceneCard>();
 		cardsInHand.Add(card);
 		toAdd.transform.SetParent(this.transform);
 		Vector3 currSlot = handSlots[currentIndex++].transform.position;
@@ -58,7 +58,7 @@ public class HandHandler : MonoBehaviour, DragArea
 
 	}
 	
-	public List<cardScript> getCards()
+	public List<InSceneCard> getCards()
 	{
 		return cardsInHand;
 	}

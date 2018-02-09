@@ -9,6 +9,7 @@ public class PlayerInfo : ScriptableObject
 	public string playerName;
 	public GameObject playerDeck;
 	public GameObject playerHand;
+	public GameObject playerField;
 	public int pips;
 	public int maxHealth;
 	public int currentHealth;

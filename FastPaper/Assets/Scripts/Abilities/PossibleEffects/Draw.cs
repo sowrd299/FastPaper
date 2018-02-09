@@ -12,8 +12,8 @@ public class Draw : Effect
 		numberOfCards = n;
 	}
 
-	public void OnTrigger(CardScriptable attachedTo)
+	public void OnTrigger(InSceneCard attachedTo)
 	{
-		attachedTo.controllingPlayer.playerDeck.GetComponent<Deck>().drawCards(numberOfCards);
+		attachedTo.cardInfo.controllingPlayer.playerDeck.GetComponent<Deck>().drawCards(numberOfCards);
 	}
 }

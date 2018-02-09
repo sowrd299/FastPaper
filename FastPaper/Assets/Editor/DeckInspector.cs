@@ -17,11 +17,11 @@ public class DeckInspector : Editor
 		if(!EditorApplication.isPlaying)
 			return;
 
-		Queue<cardScript> cards = myTarget.getCards();
+		Queue<InSceneCard> cards = myTarget.getCards();
 		int x = 0;
 		foreach(var item in cards)
 		{
-			EditorGUILayout.LabelField("Slot#"+x++, item.name);
+			EditorGUILayout.LabelField("Slot#"+x++, item.cardInfo.name);
 		}
 		
 		if(GUILayout.Button("ValidateCards"))

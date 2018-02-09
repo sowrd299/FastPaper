@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -19,8 +20,8 @@ public class GameManagerInspector : Editor
 
 		if(!EditorApplication.isPlaying)
 		{
-			manager.playerOnePrefab = EditorGUILayout.ObjectField((Object)manager.playerOnePrefab, typeof(Object), false) as ScriptableObject;
-			manager.playerTwoPrefab = EditorGUILayout.ObjectField((Object)manager.playerTwoPrefab, typeof(Object), false) as ScriptableObject;
+			manager.playerOnePrefab = EditorGUILayout.ObjectField((UnityEngine.Object)manager.playerOnePrefab, typeof(UnityEngine.Object), false) as ScriptableObject;
+			manager.playerTwoPrefab = EditorGUILayout.ObjectField((UnityEngine.Object)manager.playerTwoPrefab, typeof(UnityEngine.Object), false) as ScriptableObject;
 			return;
 		}
 
@@ -43,6 +44,10 @@ public class GameManagerInspector : Editor
 			p2.pips = EditorGUILayout.DelayedIntField("Pips", p2.pips);
 			EditorGUI.indentLevel--;
 		}
+
+
+		SerializedObject obj = new UnityEditor.SerializedObject(manager);
+		EditorGUILayout.LabelField("Current Phase:", Enum.GetName(typeof(Turn), obj.FindProperty("currTurn").enumValueIndex));
 
 		if(GUILayout.Button("AdvanceTurn"))
 		{

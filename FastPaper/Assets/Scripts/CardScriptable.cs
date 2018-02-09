@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardType { hit, block, grab };
+
 public class CardScriptable : ScriptableObject 
 {
 	public new string name;
 	public string flavorText;
 	public string textBox;
+	public CardType type;
 	public int attack;
 	public int countdown;
 	public int cost;

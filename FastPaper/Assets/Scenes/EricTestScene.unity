@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -113,6 +113,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &79229728 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1043395593}
+--- !u!114 &79229729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 79229728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36e7b3f9a2dd734fa5dda92b623a806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardInfo: {fileID: 0}
 --- !u!1 &184468436
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +226,8 @@ Prefab:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114588578255937452, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &238002599
@@ -314,11 +332,40 @@ GameObject:
   m_PrefabParentObject: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f,
     type: 2}
   m_PrefabInternal: {fileID: 535394888}
+--- !u!114 &259981967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259981966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36e7b3f9a2dd734fa5dda92b623a806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardInfo: {fileID: 11400000, guid: 29b07c3c8ee70fa4aab915294e59624d, type: 2}
 --- !u!4 &259981971 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4435558262388660, guid: 0100ef5c60efd294892c82a1b495469f,
     type: 2}
   m_PrefabInternal: {fileID: 535394888}
+--- !u!1 &381536358 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f,
+    type: 2}
+  m_PrefabInternal: {fileID: 935785102}
+--- !u!114 &381536359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 381536358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36e7b3f9a2dd734fa5dda92b623a806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardInfo: {fileID: 0}
 --- !u!1 &391810607
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +670,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
       propertyPath: m_Name
-      value: RedCard
+      value: bob
       objectReference: {fileID: 0}
     - target: {fileID: 212374562188866120, guid: 0100ef5c60efd294892c82a1b495469f,
         type: 2}
@@ -640,7 +687,8 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.3137255
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114588578255937452, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &732747715
@@ -794,7 +842,8 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.3137255
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114588578255937452, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &859050843
@@ -828,6 +877,7 @@ MonoBehaviour:
   playerTwoPrefab: {fileID: 11400000, guid: edec968610f3f7b4bbf2dbabfbc41bca, type: 2}
   playerOne: {fileID: 0}
   playerTwo: {fileID: 0}
+  canPlay: 0
   currTurn: 0
 --- !u!4 &859050845
 Transform:
@@ -905,7 +955,8 @@ Prefab:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114588578255937452, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1043395593
@@ -971,7 +1022,8 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.3137255
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114588578255937452, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0100ef5c60efd294892c82a1b495469f, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1045014800 stripped
@@ -1250,6 +1302,23 @@ Transform:
   m_Father: {fileID: 801324096}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1912030224 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f,
+    type: 2}
+  m_PrefabInternal: {fileID: 856484662}
+--- !u!114 &1912030225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1912030224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36e7b3f9a2dd734fa5dda92b623a806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardInfo: {fileID: 0}
 --- !u!1 &1940639460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,6 +1384,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &2041031934 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1862252319166572, guid: 0100ef5c60efd294892c82a1b495469f,
+    type: 2}
+  m_PrefabInternal: {fileID: 197309710}
+--- !u!114 &2041031935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2041031934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36e7b3f9a2dd734fa5dda92b623a806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardInfo: {fileID: 0}
 --- !u!1 &2100331998
 GameObject:
   m_ObjectHideFlags: 0
