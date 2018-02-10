@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardType { hit, block, grab };
+public enum CardType { Hit, Block, Grab };
 
 public class CardScriptable : ScriptableObject 
 {

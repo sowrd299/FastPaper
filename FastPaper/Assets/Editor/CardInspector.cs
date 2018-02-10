@@ -11,6 +11,8 @@ public class CardInspector : Editor
 	{
 		InSceneCard myTarget = (InSceneCard)target;
 
+		myTarget.cardInfo = EditorGUILayout.ObjectField((UnityEngine.Object)myTarget.cardInfo, typeof(UnityEngine.Object), false) as CardScriptable;
+
 		if(myTarget.cardInfo == null)
 			return;
 		

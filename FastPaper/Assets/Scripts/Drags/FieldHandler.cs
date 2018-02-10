@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class FieldHandler : MonoBehaviour, DragArea
 {
-	public GameObject red;
-	public GameObject blue;
-	public GameObject green;
+	public GameObject hitArea;
+	public GameObject blockArea;
+	public GameObject grabArea;
+
+	public List<GameObject> hitCards;
+	public List<GameObject> blockCards;
+	public List<GameObject> grabCards;
+
+	void Awake()
+	{
+		hitCards = new List<GameObject>();
+		blockCards = new List<GameObject>();
+		grabCards = new List<GameObject>();
+	}
 
 	public void addCard(GameObject toAdd)
 	{
@@ -16,17 +27,21 @@ public class FieldHandler : MonoBehaviour, DragArea
 		GameObject toUse = null;
 		switch(card.cardInfo.type)
 		{
-			case CardType.hit:
+			case CardType.Hit:
 			{
-				toUse = blue;
+				toUse = hitArea;
+				hitCards.Add(toAdd);
 			} break;
-			case CardType.block:
+			case CardType.Block:
 			{
-				toUse = green;
+				toUse = blockArea;
+				blockCards.Add(toAdd);
+
 			} break;
-			case CardType.grab:
+			case CardType.Grab:
 			{
-				toUse = red;
+				toUse = grabArea;
+				grabCards.Add(toAdd);
 			} break;
 		}
 		

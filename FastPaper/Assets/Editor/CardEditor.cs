@@ -11,6 +11,7 @@ public class CardEditor : EditorWindow
 
 	private int triggerIndex = 0;
 	private int effectIndex = 0;
+	private int typeIndex = 0;
 
 	[MenuItem("Window/Cards")]
 	public static void Init()
@@ -35,6 +36,12 @@ public class CardEditor : EditorWindow
 			toCreate.attack = EditorGUILayout.DelayedIntField("Attack:", toCreate.attack);
 			toCreate.countdown = EditorGUILayout.DelayedIntField("Countdown:", toCreate.countdown);
 			toCreate.cost = EditorGUILayout.DelayedIntField("Cost:", toCreate.cost);
+			
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.PrefixLabel("Type:");
+			typeIndex = EditorGUILayout.Popup(typeIndex, Enum.GetNames(typeof(CardType)));
+			toCreate.type = (CardType)typeIndex;
+			EditorGUILayout.EndHorizontal();
 			
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.PrefixLabel("Sprite:");

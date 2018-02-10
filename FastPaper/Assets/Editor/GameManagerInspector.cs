@@ -48,6 +48,7 @@ public class GameManagerInspector : Editor
 
 		SerializedObject obj = new UnityEditor.SerializedObject(manager);
 		EditorGUILayout.LabelField("Current Phase:", Enum.GetName(typeof(Turn), obj.FindProperty("currTurn").enumValueIndex));
+		EditorGUILayout.LabelField("CanPlay:", manager.canPlay.ToString());
 
 		if(GUILayout.Button("AdvanceTurn"))
 		{

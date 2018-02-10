@@ -9,9 +9,9 @@ public enum PossibleEffects { Draw }
 
 public class TriggeredAbility
 {
-	private Triggers trigger;
-	private PossibleEffects effectName;
-	private Effect effect;
+	public Triggers trigger;
+	public PossibleEffects effectName;
+	public Effect effect;
 
 	public TriggeredAbility(Triggers t, PossibleEffects e)
 	{
