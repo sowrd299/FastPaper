@@ -28,13 +28,6 @@ public class TriggeredAbility
 
 			} break;
 		}
-		switch(trigger)
-		{
-			case Triggers.Opener:
-			{
-				Debug.Log("Adding event " + e.ToString() + " on trigger " + t.ToString());
-			} break;
-		}
 	}
 
 	

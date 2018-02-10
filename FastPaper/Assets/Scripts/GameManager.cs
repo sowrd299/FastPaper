@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]public PlayerInfo playerOne;
 	[HideInInspector]public PlayerInfo playerTwo;
 	
+	public delegate void CardEvent(InSceneCard card);
+	public delegate void PlayerEvent(WhichPlayer player);
+
 	public PlayerEvent onStartOfTurn;
 	public PlayerEvent onDrawCard;
 	public PlayerEvent onAddPip;	
@@ -49,14 +52,14 @@ public class GameManager : MonoBehaviour
 
 	void SetupEvents()
 	{
-		onStartOfTurn = new PlayerEvent();
-		onDrawCard = new PlayerEvent();
-		onAddPip = new PlayerEvent();	
-		onSpiritPlay = new CardEvent();
-		onSpiritFade = new CardEvent();
-		onAttack = new CardEvent();
-		onDealDamage = new CardEvent();
-		onEndOfTurn = new PlayerEvent();
+		onStartOfTurn = DebugDel;
+		onDrawCard = DebugDel;
+		onAddPip = DebugDel;
+		onSpiritPlay = DebugDel;
+		onSpiritFade = DebugDel;
+		onAttack = DebugDel;
+		onDealDamage = DebugDel;
+		onEndOfTurn = DebugDel;
 	}
 
 	public void advanceTurn()
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
 		while(true)
 		{
 			//P1 start of turn
-			onStartOfTurn.Invoke(WhichPlayer.one);
+			onStartOfTurn(WhichPlayer.one);
 			//P1 draw
 			DrawCards(WhichPlayer.one);
 			advanceTurn();
@@ -86,10 +89,10 @@ public class GameManager : MonoBehaviour
 			//P1 attack
 			yield return new WaitUntil( () => currTurn != Turn.p1Attack);
 			//P1 end of turn
-			onEndOfTurn.Invoke(WhichPlayer.one);
+			onEndOfTurn(WhichPlayer.one);
 			
 			//P2 start of turn
-			onStartOfTurn.Invoke(WhichPlayer.two);
+			onStartOfTurn(WhichPlayer.two);
 			//P2 draw
 			DrawCards(WhichPlayer.two);
 			advanceTurn();
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
 			//P2 attack
 			yield return new WaitUntil( () => currTurn != Turn.p2Attack);
 			//P2 end of turn
-			onEndOfTurn.Invoke(WhichPlayer.two);
+			onEndOfTurn(WhichPlayer.two);
 		}
 		
 	}
@@ -118,19 +121,30 @@ public class GameManager : MonoBehaviour
 			playerOne.pips++;
 		else
 			playerTwo.pips++;
-		onAddPip.Invoke(p);
+		onAddPip(p);
 	}
 
 	void DrawCards(WhichPlayer p, int number = 1)
 	{
 		if(p == WhichPlayer.one)
-		return;
-		onDrawCard.Invoke(p);
+			Debug.Log("PlayerONe Draw" + number);
+		else
+			Debug.Log("PlayerTwo Draw" + number);
+		onDrawCard(p);
 
 	}
 
 	void GameOver()
 	{
 		Debug.Log("GameOver");
+	}
+
+	void DebugDel(WhichPlayer p)
+	{
+		Debug.Log("?");
+	}
+	void DebugDel(InSceneCard card)
+	{
+		Debug.Log("?");
 	}
 }

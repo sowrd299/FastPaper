@@ -19,11 +19,11 @@ public class InSceneCard : MonoBehaviour
 			{
 				case Triggers.Opener:
 				{
-					GameManager.instance.onSpiritPlay.AddListener(item.effect.OnTrigger(this));	
+					item.effect.OnTrigger(this);	
 				} break;
 				case Triggers.Fade:
 				{
-
+					GameManager.instance.onSpiritFade += item.effect.OnTrigger;
 				} break;
 				default:
 				{
