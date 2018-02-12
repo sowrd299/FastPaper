@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack }
+public enum Turn { p1Start, p1Draw, p1Pip, p1Play, p1Attack, p1End, p2Start, p2Draw, p2Pip, p2Play, p2Attack, p2End }
 public enum WhichPlayer { one = 1, two = 2 }
 
 public class GameManager : MonoBehaviour 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 	public PlayerEvent onEndOfTurn;
 
 	public bool canPlay = false;
+	public CardType currAttack;
 
 	[SerializeField]private Turn currTurn;
 
@@ -45,26 +47,27 @@ public class GameManager : MonoBehaviour
 
 		SetupEvents();
 
-		currTurn = Turn.p1Draw;
+		currTurn = 0;
+		currAttack = CardType.Hit;
 
 		StartCoroutine(runGame());
 	}
 
 	void SetupEvents()
 	{
-		onStartOfTurn = DebugDel;
-		onDrawCard = DebugDel;
-		onAddPip = DebugDel;
-		onSpiritPlay = DebugDel;
-		onSpiritFade = DebugDel;
-		onAttack = DebugDel;
-		onDealDamage = DebugDel;
-		onEndOfTurn = DebugDel;
+		onStartOfTurn = Debug1;
+		onDrawCard = Debug2;
+		onAddPip = Debug3;
+		onSpiritPlay = Debug4;
+		onSpiritFade = Debug5;
+		onAttack = Debug6;
+		onDealDamage = Debug7;
+		onEndOfTurn = Debug8;
 	}
 
 	public void advanceTurn()
 	{
-		Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
+		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
 		currTurn++;
 		if(currTurn > Turn.p2Attack)
 			currTurn = Turn.p1Pip;
@@ -74,23 +77,40 @@ public class GameManager : MonoBehaviour
 	{
 		while(true)
 		{
+			/* public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack } */
+
 			//P1 start of turn
-			onStartOfTurn(WhichPlayer.one);
+				Debug.Log("start? "+currTurn.ToString());
+				onStartOfTurn(WhichPlayer.one);
+				advanceTurn();
 			//P1 draw
-			DrawCards(WhichPlayer.one);
-			advanceTurn();
+				Debug.Log("draw? "+currTurn.ToString());
+				DrawCards(WhichPlayer.one);
+				advanceTurn();
 			//P1 gain pip
-			AddPips(WhichPlayer.one);
-			advanceTurn();
+				Debug.Log("pip? "+currTurn.ToString());
+				AddPips(WhichPlayer.one);
+				advanceTurn();
 			//P1 play
-			canPlay = true;
-			yield return new WaitUntil( () => currTurn != Turn.p1Play);
-			canPlay = false;
+				Debug.Log("paly? "+currTurn.ToString());
+				canPlay = true;
+				Debug.Log("Waiting for plays");
+				yield return new WaitUntil( () => currTurn != Turn.p1Play);
+				canPlay = false;
 			//P1 attack
-			yield return new WaitUntil( () => currTurn != Turn.p1Attack);
+				Debug.Log(currTurn.ToString());
+				Debug.Log("Attacking");
+				playerOne.playerField.GetComponent<FieldHandler>().Attack(currAttack);
+				advanceTurn();
+				yield return new WaitForSecondsRealtime(1000f);
 			//P1 end of turn
-			onEndOfTurn(WhichPlayer.one);
+				Debug.Log(currTurn.ToString());
+				onEndOfTurn(WhichPlayer.one);
+				advanceTurn();
+				currTurn = 0;
 			
+			/*
+
 			//P2 start of turn
 			onStartOfTurn(WhichPlayer.two);
 			//P2 draw
@@ -105,6 +125,8 @@ public class GameManager : MonoBehaviour
 			yield return new WaitUntil( () => currTurn != Turn.p2Attack);
 			//P2 end of turn
 			onEndOfTurn(WhichPlayer.two);
+		
+			*/
 		}
 		
 	}
@@ -139,12 +161,21 @@ public class GameManager : MonoBehaviour
 		Debug.Log("GameOver");
 	}
 
-	void DebugDel(WhichPlayer p)
+	void Debug1(WhichPlayer p){ Debug.Log("GameManger Trigger StartOfTurn"); }
+	void Debug2(WhichPlayer p){ Debug.Log("GameManger Trigger Draw Card"); }
+	void Debug3(WhichPlayer p){ Debug.Log("GameManger Trigger Add pip"); }
+	void Debug4(InSceneCard card){ Debug.Log("GameMAnger Trigger spritplay"); }
+	void Debug5(InSceneCard card){ Debug.Log("GameMAnger Trigger spritfade"); }
+	void Debug6(InSceneCard card){ Debug.Log("GameMAnger Trigger attack"); }
+	void Debug7(InSceneCard card){ Debug.Log("GameMAnger Trigger deal damage"); }
+	void Debug8(WhichPlayer p){ Debug.Log("GameManger Trigger eot"); }
+
+	
+	public void SetCurrentAttackType(Scrollbar slider)
 	{
-		Debug.Log("?");
-	}
-	void DebugDel(InSceneCard card)
-	{
-		Debug.Log("?");
+		if(slider.value*3 == 3)
+			currAttack = ((CardType)2);
+		else
+			currAttack = ((CardType)(slider.value*3));
 	}
 }

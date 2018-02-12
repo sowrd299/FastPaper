@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum Triggers { Opener = 0, Fade }
+[System.Serializable]
+public enum Triggers { Opener = 0, Fade, OnPersonalAttack }
+[System.Serializable]
 public enum PossibleEffects { Draw }
-
+[System.Serializable]
 public class TriggeredAbility
 {
 	public Triggers trigger;
@@ -17,7 +18,17 @@ public class TriggeredAbility
 	{
 		trigger = t;
 		effectName = e;
-		switch(e)
+	}
+
+	public void TriggerAbility(InSceneCard card)
+	{
+		InstantiateAbility();
+		effect.OnTrigger(card);
+	}
+
+	void InstantiateAbility()
+	{
+		switch(effectName)
 		{
 			case PossibleEffects.Draw:
 			{

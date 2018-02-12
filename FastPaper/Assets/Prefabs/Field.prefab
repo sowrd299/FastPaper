@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4024219221125664}
   - component: {fileID: 212495886897723092}
   m_Layer: 9
-  m_Name: BlueArea
+  m_Name: HitArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4687575074152880}
   - component: {fileID: 212837751984669306}
   m_Layer: 9
-  m_Name: RedArea
+  m_Name: GrabArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4130289078969976}
   - component: {fileID: 212492192663042798}
   m_Layer: 9
-  m_Name: GreenArea
+  m_Name: BlockArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1136734621343396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: -0.1}
+  m_LocalPosition: {x: -0.15, y: -0.25, z: -0.1}
   m_LocalScale: {x: 0.1, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4613404989210678}
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1671163163483752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -0.25, z: -0.1}
+  m_LocalPosition: {x: -0.05, y: -0.25, z: -0.1}
   m_LocalScale: {x: 0.1, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4613404989210678}
@@ -110,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634795695947192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1, y: 1.46, z: 0}
+  m_LocalPosition: {x: -0.604702, y: 3.0344403, z: 0.013671875}
   m_LocalScale: {x: 12, y: 5, z: 1}
   m_Children:
   - {fileID: 4024219221125664}
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1488022014053504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -0.25, z: -0.1}
+  m_LocalPosition: {x: 0.05, y: -0.25, z: -0.1}
   m_LocalScale: {x: 0.1, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4613404989210678}
@@ -168,9 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330a7a2adaac1024aa041086d1a7705c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  red: {fileID: 1488022014053504}
-  blue: {fileID: 1136734621343396}
-  green: {fileID: 1671163163483752}
+  hitArea: {fileID: 1136734621343396}
+  blockArea: {fileID: 1671163163483752}
+  grabArea: {fileID: 1488022014053504}
+  hitCards: []
+  blockCards: []
+  grabCards: []
 --- !u!212 &212219512368663252
 SpriteRenderer:
   m_ObjectHideFlags: 1

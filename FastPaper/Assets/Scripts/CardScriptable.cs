@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum CardType { Hit, Block, Grab };
 
+[System.Serializable]
 public class CardScriptable : ScriptableObject 
 {
 	public new string name;

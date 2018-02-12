@@ -6,7 +6,6 @@ using UnityEditor;
 [CustomEditor(typeof(InSceneCard))]
 public class CardInspector : Editor 
 {
-
 	public override void OnInspectorGUI()
 	{
 		InSceneCard myTarget = (InSceneCard)target;
@@ -25,16 +24,25 @@ public class CardInspector : Editor
 		EditorGUILayout.DelayedIntField("Countdown:", card.countdown);
 		EditorGUILayout.DelayedIntField("Cost:", card.cost);
 		
+		EditorGUILayout.LabelField("Type:", card.type.ToString());
+
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.PrefixLabel("Sprite:");
 		EditorGUILayout.ObjectField(card.picture, typeof(Sprite), false);
 		EditorGUILayout.EndHorizontal();
+
+		EditorGUILayout.LabelField("Type:", card.type.ToString());
 
 		EditorGUILayout.LabelField("Effects");
 		EditorGUI.indentLevel++;
 		foreach(TriggeredAbility item in card.abilities)
 			EditorGUILayout.LabelField(item.ToString());
 		EditorGUI.indentLevel--;
+
+		if(GUILayout.Button("Kill this card"))
+		{
+			Destroy(myTarget.gameObject);
+		}
 
     }
 }

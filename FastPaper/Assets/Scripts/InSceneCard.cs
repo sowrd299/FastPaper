@@ -8,10 +8,15 @@ public class InSceneCard : MonoBehaviour
 
 	void Start () 
 	{
-		
+		cardInfo  = Object.Instantiate(cardInfo);
 	}
 	
-	void Cast()
+	void OnDestroy()
+	{
+		OnDeath();
+	}
+
+	public void Cast()
 	{
 		foreach (var item in cardInfo.abilities)
 		{
@@ -19,11 +24,18 @@ public class InSceneCard : MonoBehaviour
 			{
 				case Triggers.Opener:
 				{
-					item.effect.OnTrigger(this);	
+					Debug.Log("opener trigger created");
+					item.TriggerAbility(this);
 				} break;
 				case Triggers.Fade:
 				{
-					GameManager.instance.onSpiritFade += item.effect.OnTrigger;
+					Debug.Log("fade trigger created");
+					GameManager.instance.onSpiritFade += item.TriggerAbility;
+				} break;
+				case Triggers.OnPersonalAttack:
+				{
+					Debug.Log("onattack trigger created");
+					GameManager.instance.onAttack += item.TriggerAbility;
 				} break;
 				default:
 				{
@@ -31,5 +43,11 @@ public class InSceneCard : MonoBehaviour
 				} break;
 			}
 		}
+	}
+
+	public void OnDeath()
+	{
+		GameManager.instance.onSpiritFade(this);
+		Destroy(gameObject);
 	}
 }

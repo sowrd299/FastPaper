@@ -64,8 +64,10 @@ public class CardEditor : EditorWindow
 			if(GUILayout.Button("Make the Card!") && toCreate != null)
 			{
 				AssetDatabase.CreateAsset(toCreate, "Assets/ScriptableAssets/Cards/" + toCreate.name + ".asset");
+				toCreate = null;
 				AssetDatabase.SaveAssets();
 				AssetDatabase.Refresh();
+				return;
 			}
 
 			if(GUILayout.Button("Reset!"))

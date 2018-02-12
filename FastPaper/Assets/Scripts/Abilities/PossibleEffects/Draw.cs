@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[SerializeField]
+[System.Serializable]
 public class Draw : Effect 
 {
 	public int numberOfCards;
@@ -14,6 +14,6 @@ public class Draw : Effect
 
 	public void OnTrigger(InSceneCard attachedTo)
 	{
-		attachedTo.cardInfo.controllingPlayer.playerDeck.GetComponent<Deck>().drawCards(numberOfCards);
+		Debug.Log("Trigger:Drawing");//attachedTo.cardInfo.controllingPlayer.playerDeck.GetComponent<Deck>().drawCards(numberOfCards);
 	}
 }

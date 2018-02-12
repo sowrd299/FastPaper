@@ -9,6 +9,7 @@ public class GameManagerInspector : Editor
 {
 	protected bool playerOneFoldout = false;
 	protected bool playerTwoFoldout = false;
+	protected bool triggerFoldout = false;
 
 	public override void OnInspectorGUI()
 	{
@@ -45,10 +46,39 @@ public class GameManagerInspector : Editor
 			EditorGUI.indentLevel--;
 		}
 
+		triggerFoldout = EditorGUILayout.Foldout(triggerFoldout, "Triggers", false);
+		if(triggerFoldout)
+		{
+			EditorGUI.indentLevel++;
+			Delegate[] temp = manager.onSpiritPlay.GetInvocationList();
+			EditorGUILayout.LabelField("OnSpiritPlay");
+			EditorGUI.indentLevel++;
+			for(int x = 0; x < temp.Length; x++)
+				EditorGUILayout.LabelField(temp[x].Method.ToString());
+			EditorGUI.indentLevel--;
+
+			temp = manager.onAttack.GetInvocationList();
+			EditorGUILayout.LabelField("OnAttack");
+			EditorGUI.indentLevel++;
+			for(int x = 0; x < temp.Length; x++)
+				EditorGUILayout.LabelField(temp[x].Method.ToString());
+			EditorGUI.indentLevel--;
+
+			temp = manager.onSpiritFade.GetInvocationList();
+			EditorGUILayout.LabelField("OnSpritFade");
+			EditorGUI.indentLevel++;
+			for(int x = 0; x < temp.Length; x++)
+				EditorGUILayout.LabelField(temp[x].Method.ToString());
+			EditorGUI.indentLevel--;
+
+			EditorGUI.indentLevel--;
+		}
+
 
 		SerializedObject obj = new UnityEditor.SerializedObject(manager);
 		EditorGUILayout.LabelField("Current Phase:", Enum.GetName(typeof(Turn), obj.FindProperty("currTurn").enumValueIndex));
 		EditorGUILayout.LabelField("CanPlay:", manager.canPlay.ToString());
+		EditorGUILayout.LabelField("Current Attack:", manager.currAttack.ToString());
 
 		if(GUILayout.Button("AdvanceTurn"))
 		{
