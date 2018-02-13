@@ -54,21 +54,21 @@ public class GameManagerInspector : Editor
 			EditorGUILayout.LabelField("OnSpiritPlay");
 			EditorGUI.indentLevel++;
 			for(int x = 0; x < temp.Length; x++)
-				EditorGUILayout.LabelField(temp[x].Method.ToString());
+				EditorGUILayout.LabelField(temp[x].Target.ToString());
 			EditorGUI.indentLevel--;
 
 			temp = manager.onAttack.GetInvocationList();
 			EditorGUILayout.LabelField("OnAttack");
 			EditorGUI.indentLevel++;
 			for(int x = 0; x < temp.Length; x++)
-				EditorGUILayout.LabelField(temp[x].Method.ToString());
+				EditorGUILayout.LabelField(temp[x].Target.ToString());
 			EditorGUI.indentLevel--;
 
 			temp = manager.onSpiritFade.GetInvocationList();
 			EditorGUILayout.LabelField("OnSpritFade");
 			EditorGUI.indentLevel++;
 			for(int x = 0; x < temp.Length; x++)
-				EditorGUILayout.LabelField(temp[x].Method.ToString());
+				EditorGUILayout.LabelField(temp[x].Target.ToString());
 			EditorGUI.indentLevel--;
 
 			EditorGUI.indentLevel--;

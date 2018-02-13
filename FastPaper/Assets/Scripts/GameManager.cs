@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
 	public ScriptableObject playerOnePrefab;
 	public ScriptableObject playerTwoPrefab;
 
-	[HideInInspector]public PlayerInfo playerOne;
-	[HideInInspector]public PlayerInfo playerTwo;
+	public PlayerInfo playerOne;
+	public PlayerInfo playerTwo;
 	
 	public delegate void CardEvent(InSceneCard card);
 	public delegate void PlayerEvent(WhichPlayer player);
@@ -33,7 +33,9 @@ public class GameManager : MonoBehaviour
 	public bool canPlay = false;
 	public CardType currAttack;
 
-	[SerializeField]private Turn currTurn;
+	[SerializeField]
+	private Turn currTurn;
+	private FieldHandler p1Field;
 
 	void Start () 
 	{
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
 
 		currTurn = 0;
 		currAttack = CardType.Hit;
+		p1Field = GameObject.FindGameObjectWithTag("Field").GetComponent<FieldHandler>();
 
 		StartCoroutine(runGame());
 	}
@@ -100,9 +103,10 @@ public class GameManager : MonoBehaviour
 			//P1 attack
 				Debug.Log(currTurn.ToString());
 				Debug.Log("Attacking");
-				playerOne.playerField.GetComponent<FieldHandler>().Attack(currAttack);
+				int damage = p1Field.Attack(currAttack) + playerOne.baseDamage;
+				Debug.Log("Player 2 takes " + damage);
+				playerTwo.currentHealth -= damage;
 				advanceTurn();
-				yield return new WaitForSecondsRealtime(1000f);
 			//P1 end of turn
 				Debug.Log(currTurn.ToString());
 				onEndOfTurn(WhichPlayer.one);

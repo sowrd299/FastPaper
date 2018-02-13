@@ -11,8 +11,10 @@ public class DeckInspector : Editor
 	{
 		Deck myTarget = (Deck)target;
 
+		DrawDefaultInspector();
+		
 		myTarget.deckSize = EditorGUILayout.DelayedIntField("DeckSize", myTarget.deckSize);
-		myTarget.tempCard = EditorGUILayout.ObjectField((Object)myTarget.tempCard, typeof(Object), false) as GameObject;
+		myTarget.tempCard = EditorGUILayout.ObjectField(myTarget.tempCard, typeof(GameObject), true) as GameObject;
 
 		if(!EditorApplication.isPlaying)
 			return;

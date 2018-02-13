@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b0134e012976040af0a4cf123e5db0, type: 3}
   m_Name: Player1
   m_EditorClassIdentifier: 
-  playerName: Player
+  playerName: Player1
   playerDeck: {fileID: 1381034302020986, guid: eea113f56b651c04cb3c63ec13c41821, type: 2}
   playerHand: {fileID: 1444762095745484, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
   playerField: {fileID: 1634795695947192, guid: 1f0d804b752776e40a8aa1e7cc2ea54d,
@@ -19,3 +19,4 @@ MonoBehaviour:
   pips: 0
   maxHealth: 12
   currentHealth: 12
+  baseDamage: 1

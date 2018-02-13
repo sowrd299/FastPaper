@@ -8,30 +8,26 @@ public class CardInspector : Editor
 {
 	public override void OnInspectorGUI()
 	{
+		//DrawDefaultInspector();
+		
 		InSceneCard myTarget = (InSceneCard)target;
 
-		myTarget.cardInfo = EditorGUILayout.ObjectField((UnityEngine.Object)myTarget.cardInfo, typeof(UnityEngine.Object), false) as CardScriptable;
-
+		myTarget.cardInfo = (EditorGUILayout.ObjectField((UnityEngine.Object)myTarget.cardInfo, typeof(UnityEngine.Object), false) as CardScriptable);
+		Debug.Log(myTarget.cardInfo);
 		if(myTarget.cardInfo == null)
 			return;
 		
 		CardScriptable card = myTarget.cardInfo;
 
-		EditorGUILayout.DelayedTextField("Name:", card.name);
-		EditorGUILayout.DelayedTextField("Flavor Text:", card.flavorText);
-		EditorGUILayout.DelayedTextField("Textbox:", card.textBox);
-		EditorGUILayout.DelayedIntField("Attack:", card.attack);
-		EditorGUILayout.DelayedIntField("Countdown:", card.countdown);
-		EditorGUILayout.DelayedIntField("Cost:", card.cost);
+		EditorGUILayout.LabelField("Name:", card.name);
+		EditorGUILayout.LabelField("Flavor Text:", card.flavorText);
+		EditorGUILayout.LabelField("Textbox:", card.textBox);
+		EditorGUILayout.LabelField("Attack:", card.attack.ToString());
+		EditorGUILayout.LabelField("Countdown:", card.countdown.ToString());
+		EditorGUILayout.LabelField("Cost:", card.cost.ToString());
 		
 		EditorGUILayout.LabelField("Type:", card.type.ToString());
 
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.PrefixLabel("Sprite:");
-		EditorGUILayout.ObjectField(card.picture, typeof(Sprite), false);
-		EditorGUILayout.EndHorizontal();
-
-		EditorGUILayout.LabelField("Type:", card.type.ToString());
 
 		EditorGUILayout.LabelField("Effects");
 		EditorGUI.indentLevel++;

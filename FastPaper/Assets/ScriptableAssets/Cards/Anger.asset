@@ -9,17 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13c6b5d8cf5ade4f8ea8ffbe32e076f, type: 3}
-  m_Name: bob
+  m_Name: Anger
   m_EditorClassIdentifier: 
-  name: bob
-  flavorText: 
-  textBox: 
+  name: Anger
+  flavorText: He mad
+  textBox: Draw on attack
   type: 0
-  attack: 0
-  countdown: 0
+  attack: 3
+  countdown: 2
   cost: 0
-  picture: {fileID: 0}
+  picture: {fileID: 21300000, guid: 15a1ef1fe7a5b7c4d9574d037002854c, type: 3}
   abilities:
-  - trigger: 0
+  - trigger: 2
     effectName: 0
   controllingPlayer: {fileID: 0}
