@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class topLevelToll{
 	[MenuItem("Tools/ay",false,2)]
@@ -23,7 +24,7 @@ public class topLevelToll{
     private static void LoadAdditiveScene()
     {
         var selected = Selection.activeObject;
-        EditorApplication.OpenSceneAdditive(AssetDatabase.GetAssetPath(selected));
+//        SceneManager.EditorOpenScene(AssetDatabase.GetAssetPath(selected), OpenSceneMode.Additive);
     }
 
 [MenuItem("Assets/Create/Add Configuration")]

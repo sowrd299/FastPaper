@@ -12,6 +12,13 @@ public class FieldHandler : MonoBehaviour, DragArea
 	public List<InSceneCard> blockCards;
 	public List<InSceneCard> grabCards;
 
+	private float[,] typeEffectiveness = new float[,]
+	{ 
+		{1f,1f,1f},
+		{1f,1f,1f},
+		{1f,1f,1f}
+	};
+
 	void Awake()
 	{
 		hitCards = new List<InSceneCard>();
@@ -69,6 +76,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 					GameManager.instance.onAttack(card);
 					damage += card.cardInfo.attack;
 					card.cardInfo.countdown--;
+					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
 						card.OnDeath();
 				}
@@ -81,6 +89,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 					GameManager.instance.onAttack(card);
 					damage += card.cardInfo.attack;
 					card.cardInfo.countdown--;
+					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
 						card.OnDeath();
 				}
@@ -94,6 +103,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 					GameManager.instance.onAttack(card);
 					damage += card.cardInfo.attack;
 					card.cardInfo.countdown--;
+					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
 						card.OnDeath();
 				}

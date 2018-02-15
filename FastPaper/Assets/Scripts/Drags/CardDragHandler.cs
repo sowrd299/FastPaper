@@ -20,7 +20,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnBeginDrag(PointerEventData p)
 	{
-		if(!GameManager.instance.canPlay)
+		if(!GameManager.instance.canPlay || !card.canCast())
 			return;
 		transform.position.Set(transform.position.x, transform.position.y , -0.2f);
 		Vector2 clickPos = p.position;
@@ -31,7 +31,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnDrag(PointerEventData p)
 	{
-		if(!GameManager.instance.canPlay)
+		if(!GameManager.instance.canPlay || !card.canCast())
 			return;
 		Vector2 clickPos = p.position;
 		Camera c = p.pressEventCamera;
@@ -41,7 +41,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void OnEndDrag(PointerEventData p)
 	{
-		if(!GameManager.instance.canPlay)
+		if(!GameManager.instance.canPlay || !card.canCast())
 			return;
 		Vector3 size = collider2D.bounds.size;
 		collider2D.enabled = false;

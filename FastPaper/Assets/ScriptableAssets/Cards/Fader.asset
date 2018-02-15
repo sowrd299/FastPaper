@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13c6b5d8cf5ade4f8ea8ffbe32e076f, type: 3}
+  m_Name: Fader
+  m_EditorClassIdentifier: 
+  name: Fader
+  flavorText: crossfaded
+  textBox: ???
+  type: 1
+  attack: 3
+  countdown: 3
+  cost: 3
+  picture: {fileID: 21300010, guid: 5ee89ef8f7bb81140a5adc6f5f72304f, type: 3}
+  abilities:
+  - trigger: 1
+    effectName: 0
+  controllingPlayer: {fileID: 0}

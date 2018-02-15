@@ -18,5 +18,5 @@ MonoBehaviour:
     type: 2}
   pips: 0
   maxHealth: 15
-  currentHealth: 12
+  currentHealth: 15
   baseDamage: 1

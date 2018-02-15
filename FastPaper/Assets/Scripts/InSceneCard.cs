@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class InSceneCard : MonoBehaviour 
 {
 	public CardScriptable cardInfo;
+	public bool isCastable;
 
-	[SerializeField]
 	private TextMesh nameText;
 	private TextMesh cardText;
 	private TextMesh typeText;
@@ -18,12 +18,12 @@ public class InSceneCard : MonoBehaviour
 
 	void Start () 
 	{
-		Debug.Log(cardInfo);
+		isCastable = true;
 		cardInfo = Object.Instantiate(cardInfo);
 
 		nameText = transform.Find("NameText").gameObject.GetComponent<TextMesh>();
 		cardText = transform.Find("CardText").gameObject.GetComponent<TextMesh>();
-		typeText = transform.Find("NameText").gameObject.GetComponent<TextMesh>();
+		typeText = transform.Find("TypeText").gameObject.GetComponent<TextMesh>();
 		attackText = transform.Find("AttackText").gameObject.GetComponent<TextMesh>();
 		countdownText = transform.Find("CountdownText").gameObject.GetComponent<TextMesh>();
 		costText = transform.Find("CostText").gameObject.GetComponent<TextMesh>();
@@ -48,8 +48,28 @@ public class InSceneCard : MonoBehaviour
 		OnDeath();
 	}
 
-	public void Cast()
+	public bool canCast()
 	{
+		if(GameManager.instance.getCurrentTurn() == Turn.p1Play && GameManager.instance.playerOne.pips >= cardInfo.cost)
+		{
+			return true;
+		}
+		else if(GameManager.instance.getCurrentTurn() == Turn.p2Play && GameManager.instance.playerTwo.pips >= cardInfo.cost)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public void Cast()
+	{	
+		if(GameManager.instance.getCurrentTurn() == Turn.p1Play) { GameManager.instance.playerOne.pips -= cardInfo.cost; }
+		if(GameManager.instance.getCurrentTurn() == Turn.p2Play) { GameManager.instance.playerTwo.pips -= cardInfo.cost; }
+		isCastable = false;
+
 		foreach (var item in cardInfo.abilities)
 		{
 			switch(item.trigger)

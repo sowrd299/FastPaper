@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(InSceneCard))]
+
 public class CardInspector : Editor 
 {
 	public override void OnInspectorGUI()
@@ -11,9 +12,9 @@ public class CardInspector : Editor
 		//DrawDefaultInspector();
 		
 		InSceneCard myTarget = (InSceneCard)target;
+		EditorUtility.SetDirty(myTarget);
 
-		myTarget.cardInfo = (EditorGUILayout.ObjectField((UnityEngine.Object)myTarget.cardInfo, typeof(UnityEngine.Object), false) as CardScriptable);
-		Debug.Log(myTarget.cardInfo);
+		myTarget.cardInfo = (CardScriptable)EditorGUILayout.ObjectField(myTarget.cardInfo, typeof(CardScriptable), false);
 		if(myTarget.cardInfo == null)
 			return;
 		
@@ -35,9 +36,16 @@ public class CardInspector : Editor
 			EditorGUILayout.LabelField(item.ToString());
 		EditorGUI.indentLevel--;
 
+		
+
 		if(GUILayout.Button("Kill this card"))
 		{
 			Destroy(myTarget.gameObject);
+		}
+		if(GUILayout.Button("temp"))
+		{
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
 		}
 
     }

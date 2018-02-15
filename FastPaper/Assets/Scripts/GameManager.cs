@@ -76,6 +76,11 @@ public class GameManager : MonoBehaviour
 			currTurn = Turn.p1Pip;
 	}
 
+	public Turn getCurrentTurn()
+	{
+		return currTurn;
+	}
+
 	IEnumerator runGame()
 	{
 		while(true)

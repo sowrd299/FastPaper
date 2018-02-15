@@ -10,8 +10,8 @@ public class DeckInspector : Editor
 	public override void OnInspectorGUI()
 	{
 		Deck myTarget = (Deck)target;
-
-		DrawDefaultInspector();
+		EditorUtility.SetDirty(myTarget);
+		//DrawDefaultInspector();
 		
 		myTarget.deckSize = EditorGUILayout.DelayedIntField("DeckSize", myTarget.deckSize);
 		myTarget.tempCard = EditorGUILayout.ObjectField(myTarget.tempCard, typeof(GameObject), true) as GameObject;
