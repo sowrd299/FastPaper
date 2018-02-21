@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour, DragArea 
+public class DeckHandler : MonoBehaviour, DragArea 
 {
 	public int deckSize;
 	public GameObject tempCard;

@@ -14,17 +14,21 @@ public class GameManagerInspector : Editor
 	public override void OnInspectorGUI()
 	{
 		GameManager manager = (GameManager)target;
+		EditorUtility.SetDirty(manager);
 		//DrawDefaultInspector();
-
-		PlayerInfo p1 = manager.playerOne;
-		PlayerInfo p2 = manager.playerTwo;
 
 		if(!EditorApplication.isPlaying)
 		{
-			manager.playerOnePrefab = EditorGUILayout.ObjectField((UnityEngine.Object)manager.playerOnePrefab, typeof(UnityEngine.Object), false) as ScriptableObject;
-			manager.playerTwoPrefab = EditorGUILayout.ObjectField((UnityEngine.Object)manager.playerTwoPrefab, typeof(UnityEngine.Object), false) as ScriptableObject;
+			manager.playerOne = EditorGUILayout.ObjectField(manager.playerOne, typeof(PlayerInfo), false) as PlayerInfo;
+			manager.playerTwo = EditorGUILayout.ObjectField(manager.playerTwo, typeof(PlayerInfo), false) as PlayerInfo;
+
+			manager.playerOne.inScenePlayer = EditorGUILayout.ObjectField(manager.playerOne.inScenePlayer, typeof(GameObject), true) as GameObject;
+			manager.playerTwo.inScenePlayer = EditorGUILayout.ObjectField(manager.playerTwo.inScenePlayer, typeof(GameObject), true) as GameObject;
 			return;
 		}
+
+		PlayerInfo p1 = manager.playerOne;
+		PlayerInfo p2 = manager.playerTwo;
 
 		playerOneFoldout = EditorGUILayout.Foldout(playerOneFoldout, "Player 1", false);
 		if(playerOneFoldout)

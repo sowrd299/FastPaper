@@ -12,9 +12,6 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 
-	public ScriptableObject playerOnePrefab;
-	public ScriptableObject playerTwoPrefab;
-
 	public PlayerInfo playerOne;
 	public PlayerInfo playerTwo;
 	
@@ -44,8 +41,8 @@ public class GameManager : MonoBehaviour
 		instance = this;
 		DontDestroyOnLoad(gameObject);
 
-		playerOne = UnityEngine.Object.Instantiate(playerOnePrefab) as PlayerInfo;
-		playerTwo = UnityEngine.Object.Instantiate(playerTwoPrefab) as PlayerInfo;
+		playerOne = UnityEngine.Object.Instantiate(playerOne);
+		playerTwo = UnityEngine.Object.Instantiate(playerTwo);
 
 		SetupEvents();
 
@@ -109,7 +106,6 @@ public class GameManager : MonoBehaviour
 				Debug.Log(currTurn.ToString());
 				Debug.Log("Attacking");
 				int damage = p1Field.Attack(currAttack) + playerOne.baseDamage;
-				Debug.Log("Player 2 takes " + damage);
 				playerTwo.currentHealth -= damage;
 				advanceTurn();
 			//P1 end of turn
@@ -142,8 +138,21 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
+		UpdateDisplay();
 		if(playerOne.currentHealth <= 0 || playerTwo.currentHealth <= 0)
 			GameOver();
+	}
+
+	void UpdateDisplay()
+	{
+		InScenePlayer temp = playerOne.inScenePlayer.GetComponent<InScenePlayer>();
+		temp.healthText.text = playerOne.currentHealth.ToString();
+		temp.pipText.text = playerOne.pips.ToString();
+		temp.nameText.text = playerOne.playerName;
+		temp = playerTwo.inScenePlayer.GetComponent<InScenePlayer>();
+		temp.healthText.text = playerTwo.currentHealth.ToString();
+		temp.pipText.text = playerTwo.pips.ToString();
+		temp.nameText.text = playerTwo.playerName;
 	}
 
 	void AddPips(WhichPlayer p)
