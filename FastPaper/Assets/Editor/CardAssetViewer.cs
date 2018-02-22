@@ -15,6 +15,7 @@ public class CardAssetViewer : Editor
 	public override void OnInspectorGUI()
 	{
 		CardScriptable myTarget = (CardScriptable)target;
+		EditorUtility.SetDirty(myTarget);
 
 		myTarget.name = EditorGUILayout.DelayedTextField("Name:", myTarget.name);
 		myTarget.flavorText = EditorGUILayout.DelayedTextField("Flavor Text:", myTarget.flavorText);
@@ -22,12 +23,7 @@ public class CardAssetViewer : Editor
 		myTarget.attack = EditorGUILayout.DelayedIntField("Attack:", myTarget.attack);
 		myTarget.countdown = EditorGUILayout.DelayedIntField("Countdown:", myTarget.countdown);
 		myTarget.cost = EditorGUILayout.DelayedIntField("Cost:", myTarget.cost);
-		
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.PrefixLabel("Type:");
-		typeIndex = EditorGUILayout.Popup(typeIndex, Enum.GetNames(typeof(CardType)));
-		myTarget.type = (CardType)typeIndex;
-		EditorGUILayout.EndHorizontal();
+		myTarget.type = (CardType)EditorGUILayout.Popup("Type: ", (int)myTarget.type, Enum.GetNames(typeof(CardType)));
 		
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.PrefixLabel("Sprite:");
@@ -52,6 +48,12 @@ public class CardAssetViewer : Editor
 		if(GUILayout.Button("Add Effect"))
 			myTarget.abilities.Add(new TriggeredAbility((Triggers)triggerIndex, (PossibleEffects)effectIndex));
 		EditorGUILayout.EndHorizontal();
+
+		if(GUILayout.Button("Save"))
+		{
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
+		}
 
     }
 }

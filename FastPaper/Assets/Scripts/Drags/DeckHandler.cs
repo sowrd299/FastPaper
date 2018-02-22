@@ -5,7 +5,8 @@ using UnityEngine;
 public class DeckHandler : MonoBehaviour, DragArea 
 {
 	public int deckSize;
-	public GameObject tempCard;
+	public DeckList deckList;
+	public GameObject emptyCardPrefab;
 	public Vector3 offScreen;
 
 	public static int t = 0;
@@ -14,14 +15,15 @@ public class DeckHandler : MonoBehaviour, DragArea
 
 	void Start ()
 	{
+		deckSize = deckList.deckList.Count;
 		cards = new Queue<GameObject>();
-		for(int x = 0; x < deckSize; x++)
+		foreach(var cardInfo in deckList.deckList)
 		{
-			GameObject temp = Instantiate(tempCard, offScreen, Quaternion.identity);
-			temp.name = "Card#" + x;
+			GameObject temp = Instantiate(emptyCardPrefab, offScreen, Quaternion.identity);
+			temp.GetComponent<InSceneCard>().cardInfo = cardInfo;
 			cards.Enqueue(temp);
 		}
-		//shuffleDeck();
+		shuffleDeck();
 	}
 
 	public void validate()
@@ -60,8 +62,10 @@ public class DeckHandler : MonoBehaviour, DragArea
 		}
 	}
 
-	public GameObject drawCard()
+	public GameObject drawCards()
 	{
+		if(cards.Count <= 0)
+			return new GameObject();
 		GameObject temp = cards.Dequeue();
 		return temp;
 	}
@@ -73,8 +77,26 @@ public class DeckHandler : MonoBehaviour, DragArea
 		cards.Enqueue(toAdd);
 	} 
 
-	public void drawCards(int numCards)
+	public List<GameObject> drawCards(int numCards)
 	{
+		List<GameObject> temp = new List<GameObject>();
+		for(int x = 0; x < numCards; x++)
+		{
+			GameObject card;
+			if(cards.Count > 0)
+				card = cards.Dequeue();
+			else
+				card = new GameObject();
+			temp.Add(card);
+		}
+		return temp;
+	}
 
+	public void setController(PlayerInfo player)
+	{
+		foreach(var card in getCards())
+		{
+			card.cardInfo.controllingPlayer = player;
+		}
 	}
 }

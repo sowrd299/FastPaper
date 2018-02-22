@@ -34,6 +34,8 @@ public class InSceneCard : MonoBehaviour
 
 	public void UpdateCardInfo()
 	{
+		if(this == null)
+			return;
 		nameText.text = cardInfo.name;
 		cardText.text = cardInfo.textBox;
 		typeText.text = cardInfo.type.ToString();
@@ -100,6 +102,7 @@ public class InSceneCard : MonoBehaviour
 	public void OnDeath()
 	{
 		GameManager.instance.onSpiritFade(this);
-		Destroy(gameObject);
+		if(this != null)
+			Destroy(gameObject);
 	}
 }

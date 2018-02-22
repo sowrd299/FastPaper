@@ -16,12 +16,12 @@ public class HandInspector : Editor
 			return;
 
 		List<InSceneCard> cards = myTarget.getCards();
-		for(int x = 0; x < myTarget.handSize; x++)
+		for(int x = 0; x < myTarget.maxHandSize; x++)
 			if(x >= cards.Count)
-				EditorGUILayout.LabelField("Slot"+x, "empty");
+				EditorGUILayout.LabelField("Slot " + x, "empty");
 			else
-				EditorGUILayout.LabelField("Slot"+x, cards[x].cardInfo.name);
-
+				EditorGUILayout.LabelField("Slot " + x, cards[x].cardInfo.name);
+		
 		if(GUILayout.Button("Update Hands"))
 		{
 			myTarget.UpdateSlots();

@@ -14,12 +14,10 @@ MonoBehaviour:
   name: Fader
   flavorText: crossfaded
   textBox: ???
-  type: 1
+  type: 2
   attack: 3
-  countdown: 3
+  countdown: 4
   cost: 3
   picture: {fileID: 21300010, guid: 5ee89ef8f7bb81140a5adc6f5f72304f, type: 3}
-  abilities:
-  - trigger: 1
-    effectName: 0
+  abilities: []
   controllingPlayer: {fileID: 0}

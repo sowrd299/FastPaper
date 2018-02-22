@@ -7,16 +7,16 @@ using UnityEngine;
 public class PlayerInfo : ScriptableObject
 {
 	public string playerName;
-	public GameObject playerDeck;
-	public GameObject playerHand;
-	public GameObject playerField;
-	public GameObject inScenePlayer;
+	public DeckHandler playerDeck;
+	public HandHandler playerHand;
+	public FieldHandler playerField;
+	public InScenePlayer inScenePlayer;
 	
 	public int pips;
 	public int maxHealth;
 	public int currentHealth;
 	public int baseDamage;
-
+	public CardType lastAttack;
 	//public enum CardType { Hit, Block, Grab };
 	//resists [Attack, Defend]
 	

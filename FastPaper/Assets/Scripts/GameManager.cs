@@ -14,6 +14,15 @@ public class GameManager : MonoBehaviour
 
 	public PlayerInfo playerOne;
 	public PlayerInfo playerTwo;
+
+	public GameObject inScenePlayer1;
+	public GameObject inScenePlayer2;
+	public GameObject inSceneDeckPlayer1;
+	public GameObject inSceneDeckPlayer2;
+	public GameObject inSceneHandPlayer1;
+	public GameObject inSceneHandPlayer2;	
+	public GameObject inSceneFieldPlayer1;
+	public GameObject inSceneFieldPlayer2;
 	
 	public delegate void CardEvent(InSceneCard card);
 	public delegate void PlayerEvent(WhichPlayer player);
@@ -32,7 +41,6 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField]
 	private Turn currTurn;
-	private FieldHandler p1Field;
 
 	void Start () 
 	{
@@ -43,12 +51,22 @@ public class GameManager : MonoBehaviour
 
 		playerOne = UnityEngine.Object.Instantiate(playerOne);
 		playerTwo = UnityEngine.Object.Instantiate(playerTwo);
+		playerOne.inScenePlayer = inScenePlayer1.GetComponent<InScenePlayer>();
+		playerTwo.inScenePlayer = inScenePlayer2.GetComponent<InScenePlayer>();
+		playerOne.playerDeck = inSceneDeckPlayer1.GetComponent<DeckHandler>();
+		playerOne.playerDeck.setController(playerOne);
+		//playerTwo.playerDeck = inSceneDeckPlayer2.GetComponent<DeckHandler>();
+		playerOne.playerHand = inSceneHandPlayer1.GetComponent<HandHandler>();
+		//playerTwo.playerHand = inSceneHandPlayer2.GetComponent<HandHandler>();
+		playerOne.playerField = inSceneFieldPlayer1.GetComponent<FieldHandler>();
+		//playerTwo.playerField = inSceneFieldPlayer2.GetComponent<FieldHandler>();
 
 		SetupEvents();
 
+		DrawCards(WhichPlayer.one, playerOne.playerHand.maxHandSize - 1);
+
 		currTurn = 0;
 		currAttack = CardType.Hit;
-		p1Field = GameObject.FindGameObjectWithTag("Field").GetComponent<FieldHandler>();
 
 		StartCoroutine(runGame());
 	}
@@ -85,31 +103,33 @@ public class GameManager : MonoBehaviour
 			/* public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack } */
 
 			//P1 start of turn
-				Debug.Log("start? "+currTurn.ToString());
+				//Debug.Log("start? "+currTurn.ToString());
 				onStartOfTurn(WhichPlayer.one);
 				advanceTurn();
 			//P1 draw
-				Debug.Log("draw? "+currTurn.ToString());
+				//Debug.Log("draw? "+currTurn.ToString());
 				DrawCards(WhichPlayer.one);
 				advanceTurn();
 			//P1 gain pip
-				Debug.Log("pip? "+currTurn.ToString());
+				//Debug.Log("pip? "+currTurn.ToString());
 				AddPips(WhichPlayer.one);
 				advanceTurn();
 			//P1 play
-				Debug.Log("paly? "+currTurn.ToString());
+				//Debug.Log("paly? "+currTurn.ToString());
 				canPlay = true;
 				Debug.Log("Waiting for plays");
 				yield return new WaitUntil( () => currTurn != Turn.p1Play);
 				canPlay = false;
 			//P1 attack
-				Debug.Log(currTurn.ToString());
-				Debug.Log("Attacking");
-				int damage = p1Field.Attack(currAttack) + playerOne.baseDamage;
+				//Debug.Log(currTurn.ToString());
+				//Debug.Log("Attacking");
+				int damage = playerOne.playerField.Attack(currAttack) + playerOne.baseDamage;
+				damage = (int)Mathf.Ceil(damage * playerOne.resists[(int)currAttack, (int)playerTwo.lastAttack]);
+				playerOne.lastAttack = currAttack;
 				playerTwo.currentHealth -= damage;
 				advanceTurn();
 			//P1 end of turn
-				Debug.Log(currTurn.ToString());
+				//Debug.Log(currTurn.ToString());
 				onEndOfTurn(WhichPlayer.one);
 				advanceTurn();
 				currTurn = 0;
@@ -167,7 +187,14 @@ public class GameManager : MonoBehaviour
 	void DrawCards(WhichPlayer p, int number = 1)
 	{
 		if(p == WhichPlayer.one)
-			Debug.Log("PlayerONe Draw" + number);
+		{
+			if(number == 1)
+				playerOne.playerHand.addCard(playerOne.playerDeck.drawCards());
+			else
+				foreach(var card in playerOne.playerDeck.drawCards(number))
+					playerOne.playerHand.addCard(card);
+			Debug.Log("PlayerOne Draw" + number);
+		}
 		else
 			Debug.Log("PlayerTwo Draw" + number);
 		onDrawCard(p);
@@ -177,6 +204,9 @@ public class GameManager : MonoBehaviour
 	void GameOver()
 	{
 		Debug.Log("GameOver");
+		StopAllCoroutines();
+		gameObject.SetActive(false);
+		//Application.Quit();
 	}
 
 	void Debug1(WhichPlayer p){ Debug.Log("GameManger Trigger StartOfTurn"); }

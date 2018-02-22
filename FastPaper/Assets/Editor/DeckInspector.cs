@@ -11,10 +11,9 @@ public class DeckInspector : Editor
 	{
 		DeckHandler myTarget = (DeckHandler)target;
 		EditorUtility.SetDirty(myTarget);
-		//DrawDefaultInspector();
-		
-		myTarget.deckSize = EditorGUILayout.DelayedIntField("DeckHandlerSize", myTarget.deckSize);
-		myTarget.tempCard = EditorGUILayout.ObjectField(myTarget.tempCard, typeof(GameObject), true) as GameObject;
+
+		myTarget.emptyCardPrefab = EditorGUILayout.ObjectField("EmptyCard:", myTarget.emptyCardPrefab, typeof(GameObject), false) as GameObject;
+		myTarget.deckList = EditorGUILayout.ObjectField("Deck List:", myTarget.deckList, typeof(DeckList), false) as DeckList;
 
 		if(!EditorApplication.isPlaying)
 			return;

@@ -113,6 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &140392032 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1381034302020986, guid: eea113f56b651c04cb3c63ec13c41821,
+    type: 2}
+  m_PrefabInternal: {fileID: 1076290908}
 --- !u!1 &182593360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,6 +1098,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOne: {fileID: 11400000, guid: f62fd891a23f3ff4bb765323866038c7, type: 2}
   playerTwo: {fileID: 11400000, guid: d9b43fdc31a7f4a4e87c788fc4291271, type: 2}
+  inScenePlayer1: {fileID: 1785282705}
+  inScenePlayer2: {fileID: 1315132912}
+  inSceneDeckPlayer1: {fileID: 140392032}
+  inSceneDeckPlayer2: {fileID: 0}
+  inSceneHandPlayer1: {fileID: 1401149555}
+  inSceneHandPlayer2: {fileID: 0}
+  inSceneFieldPlayer1: {fileID: 1839118123}
+  inSceneFieldPlayer2: {fileID: 0}
   canPlay: 0
   currAttack: 0
   currTurn: 0
@@ -1162,6 +1175,18 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114617952997793124, guid: eea113f56b651c04cb3c63ec13c41821,
+        type: 2}
+      propertyPath: emptyCardPrefab
+      value: 
+      objectReference: {fileID: 1060195618273424, guid: d7360a536718a384aaa8f4efa8e9827b,
+        type: 2}
+    - target: {fileID: 114617952997793124, guid: eea113f56b651c04cb3c63ec13c41821,
+        type: 2}
+      propertyPath: deckList
+      value: 
+      objectReference: {fileID: 11400000, guid: aee28a16ba70b484daa3a10aa2b0c85b,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eea113f56b651c04cb3c63ec13c41821, type: 2}
   m_IsPrefabParent: 0
@@ -1290,6 +1315,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1401149555 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1444762095745484, guid: 48d67ed98ee155c4586fe8d2809413b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1690722012}
 --- !u!1 &1404912816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,6 +1767,11 @@ Prefab:
       propertyPath: handSize
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114140916401820506, guid: 48d67ed98ee155c4586fe8d2809413b2,
+        type: 2}
+      propertyPath: maxHandSize
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48d67ed98ee155c4586fe8d2809413b2, type: 2}
   m_IsPrefabParent: 0
@@ -1831,6 +1866,11 @@ MonoBehaviour:
   nameText: {fileID: 0}
   healthText: {fileID: 0}
   pipText: {fileID: 0}
+--- !u!1 &1839118123 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1634795695947192, guid: 1f0d804b752776e40a8aa1e7cc2ea54d,
+    type: 2}
+  m_PrefabInternal: {fileID: 732747715}
 --- !u!1 &1844228202
 GameObject:
   m_ObjectHideFlags: 0

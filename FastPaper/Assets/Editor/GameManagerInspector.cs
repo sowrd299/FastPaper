@@ -15,18 +15,24 @@ public class GameManagerInspector : Editor
 	{
 		GameManager manager = (GameManager)target;
 		EditorUtility.SetDirty(manager);
-		//DrawDefaultInspector();
 
 		if(!EditorApplication.isPlaying)
 		{
-			manager.playerOne = EditorGUILayout.ObjectField(manager.playerOne, typeof(PlayerInfo), false) as PlayerInfo;
-			manager.playerTwo = EditorGUILayout.ObjectField(manager.playerTwo, typeof(PlayerInfo), false) as PlayerInfo;
+			manager.playerOne = EditorGUILayout.ObjectField("Player1 Object:", manager.playerOne, typeof(PlayerInfo), false) as PlayerInfo;
+			manager.playerTwo = EditorGUILayout.ObjectField("Player2 Object:", manager.playerTwo, typeof(PlayerInfo), false) as PlayerInfo;
 
-			manager.playerOne.inScenePlayer = EditorGUILayout.ObjectField(manager.playerOne.inScenePlayer, typeof(GameObject), true) as GameObject;
-			manager.playerTwo.inScenePlayer = EditorGUILayout.ObjectField(manager.playerTwo.inScenePlayer, typeof(GameObject), true) as GameObject;
+			manager.inScenePlayer1 = EditorGUILayout.ObjectField("InScenePlayer1:", manager.inScenePlayer1, typeof(GameObject), true) as GameObject;
+			manager.inScenePlayer2 = EditorGUILayout.ObjectField("InScenePlayer2:", manager.inScenePlayer2, typeof(GameObject), true) as GameObject;
+			manager.inSceneDeckPlayer1 = EditorGUILayout.ObjectField("P1Deck", manager.inSceneDeckPlayer1, typeof(GameObject), true) as GameObject;
+			manager.inSceneDeckPlayer2 = EditorGUILayout.ObjectField("P2Deck", manager.inSceneDeckPlayer2, typeof(GameObject), true) as GameObject;
+			manager.inSceneHandPlayer1 = EditorGUILayout.ObjectField("P1Hand", manager.inSceneHandPlayer1, typeof(GameObject), true) as GameObject;
+			manager.inSceneHandPlayer2 = EditorGUILayout.ObjectField("P2Hand", manager.inSceneHandPlayer2, typeof(GameObject), true) as GameObject;
+			manager.inSceneFieldPlayer1 = EditorGUILayout.ObjectField("P1Field", manager.inSceneFieldPlayer1, typeof(GameObject), true) as GameObject;
+			manager.inSceneFieldPlayer2 = EditorGUILayout.ObjectField("P2Field", manager.inSceneFieldPlayer2, typeof(GameObject), true) as GameObject;
+			
 			return;
 		}
-
+		
 		PlayerInfo p1 = manager.playerOne;
 		PlayerInfo p2 = manager.playerTwo;
 

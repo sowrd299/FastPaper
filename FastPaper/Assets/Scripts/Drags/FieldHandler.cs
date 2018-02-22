@@ -55,6 +55,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 
 	public int Attack(CardType toAttackWith)
 	{
+		List<InSceneCard> toRemove = new List<InSceneCard>();
 		Debug.Log("ATTACKING with " + toAttackWith.ToString());
 		int damage = 0;
 		switch(toAttackWith)
@@ -71,7 +72,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 					card.cardInfo.countdown--;
 					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
-						card.OnDeath();
+						toRemove.Add(card);
 				}
 			} break;
 			case CardType.Block:
@@ -84,7 +85,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 					card.cardInfo.countdown--;
 					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
-						card.OnDeath();
+						toRemove.Add(card);
 				}
 
 			} break;
@@ -98,10 +99,20 @@ public class FieldHandler : MonoBehaviour, DragArea
 					card.cardInfo.countdown--;
 					card.UpdateCardInfo();
 					if(card.cardInfo.countdown <= 0)
-						card.OnDeath();
+					if(card.cardInfo.countdown <= 0)
+						toRemove.Add(card);
 				}
 			} break;
 		}
+
+		foreach(var card in toRemove)
+		{
+			hitCards.Remove(card);
+			blockCards.Remove(card);
+			grabCards.Remove(card);
+			Destroy(card.gameObject);
+		}
+
 		return damage;
 	}
 

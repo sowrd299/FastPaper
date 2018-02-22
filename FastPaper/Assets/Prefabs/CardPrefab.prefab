@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfo: {fileID: 0}
+  isCastable: 0
 --- !u!114 &114788809743471320
 MonoBehaviour:
   m_ObjectHideFlags: 1
