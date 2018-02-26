@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
 				AddPips(WhichPlayer.one);
 				advanceTurn();
 			//P1 play
-				//Debug.Log("paly? "+currTurn.ToString());
+				//Debug.Log("play? "+currTurn.ToString());
 				canPlay = true;
 				Debug.Log("Waiting for plays");
 				yield return new WaitUntil( () => currTurn != Turn.p1Play);
