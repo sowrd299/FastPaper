@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 
+	public LayerMask cardLayer;
+
 	public PlayerInfo playerOne;
 	public PlayerInfo playerTwo;
 
@@ -36,8 +38,11 @@ public class GameManager : MonoBehaviour
 	public CardEvent onDealDamage;
 	public PlayerEvent onEndOfTurn;
 
-	public bool canPlay = false;
+	public bool canPlay;
 	public CardType currAttack;
+
+	public bool mustTarget;
+	public GameObject currentTarget;
 
 	[SerializeField]
 	private Turn currTurn;
@@ -67,6 +72,8 @@ public class GameManager : MonoBehaviour
 
 		currTurn = 0;
 		currAttack = CardType.Hit;
+		canPlay = false;
+		mustTarget = true;
 
 		StartCoroutine(runGame());
 	}
@@ -83,12 +90,37 @@ public class GameManager : MonoBehaviour
 		onEndOfTurn = Debug8;
 	}
 
-	public void advanceTurn()
+	public void advanceTurnPublic()
+	{
+		StartCoroutine(advanceTurn());
+	}
+
+	private IEnumerator advanceTurn()
 	{
 		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
+		if(mustTarget)
+			yield return StartCoroutine(pickTarget());
 		currTurn++;
 		if(currTurn > Turn.p2Attack)
 			currTurn = Turn.p1Pip;
+	}
+
+	private IEnumerator pickTarget()
+	{
+		Debug.Log("picking target");
+		while(currentTarget == null)
+		{
+			if(Input.GetMouseButtonDown(0))
+			{
+				Vector2 clickPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+				Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, 0));
+				RaycastHit2D temp = Physics2D.Raycast(mousePosition, Vector3.forward, 100, cardLayer);
+				if(temp.collider != null)
+					currentTarget = temp.collider.gameObject;
+			}
+			yield return null;
+		}
+		mustTarget = false;
 	}
 
 	public Turn getCurrentTurn()
@@ -105,19 +137,19 @@ public class GameManager : MonoBehaviour
 			//P1 start of turn
 				//Debug.Log("start? "+currTurn.ToString());
 				onStartOfTurn(WhichPlayer.one);
-				advanceTurn();
+				yield return StartCoroutine(advanceTurn());
 			//P1 draw
 				//Debug.Log("draw? "+currTurn.ToString());
 				DrawCards(WhichPlayer.one);
-				advanceTurn();
+				yield return StartCoroutine(advanceTurn());
 			//P1 gain pip
 				//Debug.Log("pip? "+currTurn.ToString());
 				AddPips(WhichPlayer.one);
-				advanceTurn();
+				yield return StartCoroutine(advanceTurn());
 			//P1 play
 				//Debug.Log("play? "+currTurn.ToString());
 				canPlay = true;
-				Debug.Log("Waiting for plays");
+				//Debug.Log("Waiting for plays");
 				yield return new WaitUntil( () => currTurn != Turn.p1Play);
 				canPlay = false;
 			//P1 attack
@@ -127,11 +159,11 @@ public class GameManager : MonoBehaviour
 				damage = (int)Mathf.Ceil(damage * playerOne.resists[(int)currAttack, (int)playerTwo.lastAttack]);
 				playerOne.lastAttack = currAttack;
 				playerTwo.currentHealth -= damage;
-				advanceTurn();
+				yield return StartCoroutine(advanceTurn());
 			//P1 end of turn
 				//Debug.Log(currTurn.ToString());
 				onEndOfTurn(WhichPlayer.one);
-				advanceTurn();
+				yield return StartCoroutine(advanceTurn());
 				currTurn = 0;
 			
 			/*
@@ -192,11 +224,13 @@ public class GameManager : MonoBehaviour
 				playerOne.playerHand.addCard(playerOne.playerDeck.drawCards());
 			else
 				foreach(var card in playerOne.playerDeck.drawCards(number))
+				{
 					playerOne.playerHand.addCard(card);
-			Debug.Log("PlayerOne Draw" + number);
+				}	
+			//Debug.Log("PlayerOne Draw" + number);
 		}
 		else
-			Debug.Log("PlayerTwo Draw" + number);
+			//Debug.Log("PlayerTwo Draw" + number);
 		onDrawCard(p);
 
 	}

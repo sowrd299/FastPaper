@@ -9,17 +9,19 @@ public class DeckHandler : MonoBehaviour, DragArea
 	public GameObject emptyCardPrefab;
 	public Vector3 offScreen;
 
-	public static int t = 0;
-
 	public Queue<GameObject> cards;
+
+	private GameObject cardHolder;
 
 	void Start ()
 	{
 		deckSize = deckList.deckList.Count;
 		cards = new Queue<GameObject>();
+		cardHolder = new GameObject();
+		cardHolder.name = "CardHolder";
 		foreach(var cardInfo in deckList.deckList)
 		{
-			GameObject temp = Instantiate(emptyCardPrefab, offScreen, Quaternion.identity);
+			GameObject temp = Instantiate(emptyCardPrefab, offScreen, Quaternion.identity, cardHolder.transform);
 			temp.GetComponent<InSceneCard>().cardInfo = cardInfo;
 			cards.Enqueue(temp);
 		}

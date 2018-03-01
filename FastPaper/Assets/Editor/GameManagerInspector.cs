@@ -92,7 +92,7 @@ public class GameManagerInspector : Editor
 
 		if(GUILayout.Button("AdvanceTurn"))
 		{
-			manager.advanceTurn();
+			manager.advanceTurnPublic();
 		}
     }
 }
