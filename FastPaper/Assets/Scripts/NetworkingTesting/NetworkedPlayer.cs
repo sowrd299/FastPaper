@@ -10,14 +10,10 @@ public class NetworkedPlayer : NetworkBehaviour
 	void Awake() 
 	{
 		Debug.Log("Called");
-		if(isLocalPlayer)
+		numInstPlayers++;
+		if(numInstPlayers == 2 && Camera.main != null)
 		{
-			Debug.Log("islocalplayer");
-			numInstPlayers++;
-			if(numInstPlayers == 2 && Camera.main != null)
-			{
-				Camera.main.GetComponent<NetworkCamera>().isPlayerOne = false;
-			}
+			Camera.main.GetComponent<NetworkCamera>().isPlayerOne = false;
 		}
 	}
 }

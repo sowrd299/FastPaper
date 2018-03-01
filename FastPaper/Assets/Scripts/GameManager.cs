@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void GameOver()
+	public void GameOver()
 	{
 		Debug.Log("GameOver");
 		StopAllCoroutines();

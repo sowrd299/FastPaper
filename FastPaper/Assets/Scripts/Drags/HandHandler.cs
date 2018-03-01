@@ -34,7 +34,7 @@ public class HandHandler : MonoBehaviour, DragArea
 
 		for(int x = 0; x < maxHandSize; x++)
 		{
-			handSlots[x] = Instantiate(handSlotPrefab, space, Quaternion.identity, transform);
+			handSlots[x] = Instantiate(handSlotPrefab, space, Quaternion.identity, gameObject.transform);
 			Vector3 i = handSlots[x].transform.localScale;
 			Vector3 p = transform.localScale;
 			handSlots[x].transform.localScale = new Vector3(i.x/p.x, i.y/p.y,i.z/p.z);

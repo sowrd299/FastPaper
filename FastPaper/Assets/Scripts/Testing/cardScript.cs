@@ -22,6 +22,6 @@ public class cardScript : MonoBehaviour
 
     public void BuildObject()
     {
-        Instantiate(obj, new Vector3(0,0,0), Quaternion.identity);
+        //Instantiate(obj, new Vector3(0,0,0), Quaternion.identity);
     }
 }

@@ -65,7 +65,10 @@ public class DeckHandler : MonoBehaviour, DragArea
 	public GameObject drawCards()
 	{
 		if(cards.Count <= 0)
+		{
+			GameManager.instance.GameOver();
 			return new GameObject();
+		}
 		GameObject temp = cards.Dequeue();
 		return temp;
 	}
@@ -86,7 +89,10 @@ public class DeckHandler : MonoBehaviour, DragArea
 			if(cards.Count > 0)
 				card = cards.Dequeue();
 			else
+			{
+				GameManager.instance.GameOver();
 				card = new GameObject();
+			}
 			temp.Add(card);
 		}
 		return temp;
