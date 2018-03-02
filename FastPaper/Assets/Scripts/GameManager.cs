@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
 		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
 		if(needsTarget.Count != 0)
 			yield return StartCoroutine(pickTarget());
-		yield return null;
 		currTurn++;
 		if(currTurn > Turn.p2Attack)
 			currTurn = Turn.p1Pip;

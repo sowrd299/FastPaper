@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [System.Serializable]
-public enum Triggers { Opener = 0, Fade, OnPersonalAttack }
+public enum Triggers { Opener, Fade, OnPersonalAttack }
 [System.Serializable]
-public enum PossibleEffects { Draw }
+public enum PossibleEffects { Draw, CountDownTarget }
 [System.Serializable]
 public class TriggeredAbility
 {
@@ -14,7 +15,6 @@ public class TriggeredAbility
 	public PossibleEffects effectName;
 	public Effect effect;
 
-	public bool isTargeted;
 	public GameObject target;
 
 	public TriggeredAbility(Triggers t, PossibleEffects e)
@@ -26,13 +26,21 @@ public class TriggeredAbility
 
 	public async void TriggerAbility(InSceneCard card)
 	{
+		Debug.Log(1);
 		InstantiateAbility();
-		if(isTargeted)
+		Debug.Log(2);
+		if(effect.requiresTarget)
 		{
-			GameManager.instance.needsTarget.Enqueue(this);			
-			await () => target != null;
+			Debug.Log(3);
+			GameManager.instance.needsTarget.Enqueue(this);
+			Debug.Log(4);
+			while(target == null)
+				await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
+			Debug.Log(target);
+			((TargetedEffect)effect).OnTrigger(card, target.GetComponent<InSceneCard>());
 		}
-		effect.OnTrigger(card);
+		else
+			((NonTargetedEffect)effect).OnTrigger(card);
 	}
 
 
@@ -44,6 +52,10 @@ public class TriggeredAbility
 			case PossibleEffects.Draw:
 			{
 				effect = new Draw(1);
+			} break;
+			case PossibleEffects.CountDownTarget:
+			{
+				effect = new CountDownTarget(1);
 			} break;
 			default:
 			{
