@@ -31,11 +31,7 @@ public class TriggeredAbility
 		Debug.Log(2);
 		if(effect.requiresTarget)
 		{
-			Debug.Log(3);
-			GameManager.instance.needsTarget.Enqueue(this);
-			Debug.Log(4);
-			while(target == null)
-				await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
+			target = await GameManager.instance.pickTarget();
 			Debug.Log(target);
 			((TargetedEffect)effect).OnTrigger(card, target.GetComponent<InSceneCard>());
 		}

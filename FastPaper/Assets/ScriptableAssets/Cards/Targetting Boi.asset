@@ -20,7 +20,7 @@ MonoBehaviour:
   cost: 0
   picture: {fileID: 21300000, guid: 9e297fb95cd603f4485a6ce856e6ea0b, type: 3}
   abilities:
-  - trigger: 0
+  - trigger: 2
     effectName: 1
     target: {fileID: 0}
   controllingPlayer: {fileID: 0}

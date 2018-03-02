@@ -15,6 +15,8 @@ public class CountDownTarget : TargetedEffect
 
 	public override void OnTrigger(InSceneCard attachedTo, InSceneCard target)
 	{
-		Debug.Log("Counting down " + target.cardInfo.name);//attachedTo.cardInfo.controllingPlayer.playerDeck.GetComponent<Deck>().drawCards(numberOfCards);
+		Debug.Log("Counting down " + target.cardInfo.name);
+		target.cardInfo.countdown--;
+		target.UpdateCardInfo();
 	}
 }

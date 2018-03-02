@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -41,8 +42,7 @@ public class GameManager : MonoBehaviour
 	public bool canPlay;
 	public CardType currAttack;
 
-	public Queue<TriggeredAbility> needsTarget;
-
+	public bool isPickingTarget;
 	[SerializeField]
 	private Turn currTurn;
 
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 		currTurn = 0;
 		currAttack = CardType.Hit;
 		canPlay = false;
-		needsTarget = new Queue<TriggeredAbility>();
+		isPickingTarget = false;
 
 		StartCoroutine(runGame());
 	}
@@ -97,32 +97,38 @@ public class GameManager : MonoBehaviour
 	private IEnumerator advanceTurn()
 	{
 		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
-		if(needsTarget.Count != 0)
-			yield return StartCoroutine(pickTarget());
+		if
 		currTurn++;
-		if(currTurn > Turn.p2Attack)
+		if(currTurn > Turn.p2End)
 			currTurn = Turn.p1Pip;
 	}
 
-	private IEnumerator pickTarget()
+	public async Task<GameObject> pickTarget()
 	{
-		Debug.Log("picking target");
-		TriggeredAbility temp = needsTarget.Dequeue();
-		while(temp.target == null)
+		while(isPickingTarget)
 		{
-			if(Input.GetMouseButtonDown(0))
+			await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
+		}
+		isPickingTarget = true;
+		//Debug.Log("picking target");
+		GameObject temp = null;
+		while(temp == null)
+		{
+			if(Input.GetMouseButton(0))
 			{
-				Debug.Log("click");
+				//Debug.Log("click");
 				Vector2 clickPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 				Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, -10));
-				Debug.Log(mousePosition);
-				Debug.DrawLine(mousePosition, mousePosition+Vector3.forward*100, Color.red, 3);
+				//Debug.Log(mousePosition);
+				//Debug.DrawLine(mousePosition, mousePosition+Vector3.forward*100, Color.red, 3);
 				RaycastHit2D ray = Physics2D.Raycast(mousePosition, Vector3.forward, 100, cardLayer);
 				if(ray.collider != null)
-					temp.target = ray.collider.gameObject;
+					temp = ray.collider.gameObject;
 			}
-			yield return null;
+			await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
 		}
+		isPickingTarget = false;
+		return temp;
 	}
 
 	public Turn getCurrentTurn()

@@ -36,6 +36,8 @@ public class InSceneCard : MonoBehaviour
 	{
 		if(this == null)
 			return;
+		if(cardInfo.countdown <= 0)
+			OnDeath();
 		nameText.text = cardInfo.name;
 		cardText.text = cardInfo.textBox;
 		typeText.text = cardInfo.type.ToString();
