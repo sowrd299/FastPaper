@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
 	public bool canPlay;
 	public CardType currAttack;
 
-	public bool mustTarget;
-	public GameObject currentTarget;
+	public Queue<TriggeredAbility> needsTarget;
 
 	[SerializeField]
 	private Turn currTurn;
@@ -73,7 +72,7 @@ public class GameManager : MonoBehaviour
 		currTurn = 0;
 		currAttack = CardType.Hit;
 		canPlay = false;
-		mustTarget = true;
+		needsTarget = new Queue<TriggeredAbility>();
 
 		StartCoroutine(runGame());
 	}
@@ -98,8 +97,9 @@ public class GameManager : MonoBehaviour
 	private IEnumerator advanceTurn()
 	{
 		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
-		if(mustTarget)
+		if(needsTarget.Count != 0)
 			yield return StartCoroutine(pickTarget());
+		yield return null;
 		currTurn++;
 		if(currTurn > Turn.p2Attack)
 			currTurn = Turn.p1Pip;
@@ -108,19 +108,22 @@ public class GameManager : MonoBehaviour
 	private IEnumerator pickTarget()
 	{
 		Debug.Log("picking target");
-		while(currentTarget == null)
+		TriggeredAbility temp = needsTarget.Dequeue();
+		while(temp.target == null)
 		{
 			if(Input.GetMouseButtonDown(0))
 			{
+				Debug.Log("click");
 				Vector2 clickPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-				Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, 0));
-				RaycastHit2D temp = Physics2D.Raycast(mousePosition, Vector3.forward, 100, cardLayer);
-				if(temp.collider != null)
-					currentTarget = temp.collider.gameObject;
+				Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(clickPos.x, clickPos.y, -10));
+				Debug.Log(mousePosition);
+				Debug.DrawLine(mousePosition, mousePosition+Vector3.forward*100, Color.red, 3);
+				RaycastHit2D ray = Physics2D.Raycast(mousePosition, Vector3.forward, 100, cardLayer);
+				if(ray.collider != null)
+					temp.target = ray.collider.gameObject;
 			}
 			yield return null;
 		}
-		mustTarget = false;
 	}
 
 	public Turn getCurrentTurn()
@@ -132,7 +135,7 @@ public class GameManager : MonoBehaviour
 	{
 		while(true)
 		{
-			/* public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack } */
+			// public enum Turn { p1Draw, p1Pip, p1Play, p1Attack, p2Draw, p2Pip, p2Play, p2Attack } 
 
 			//P1 start of turn
 				//Debug.Log("start? "+currTurn.ToString());
@@ -244,13 +247,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	void Debug1(WhichPlayer p){ Debug.Log("GameManger Trigger StartOfTurn"); }
-	void Debug2(WhichPlayer p){ Debug.Log("GameManger Trigger Draw Card"); }
-	void Debug3(WhichPlayer p){ Debug.Log("GameManger Trigger Add pip"); }
-	void Debug4(InSceneCard card){ Debug.Log("GameMAnger Trigger spritplay"); }
-	void Debug5(InSceneCard card){ Debug.Log("GameMAnger Trigger spritfade"); }
-	void Debug6(InSceneCard card){ Debug.Log("GameMAnger Trigger attack"); }
-	void Debug7(InSceneCard card){ Debug.Log("GameMAnger Trigger deal damage"); }
-	void Debug8(WhichPlayer p){ Debug.Log("GameManger Trigger eot"); }
+	void Debug2(WhichPlayer p){ Debug.Log("GameManger Trigger DrawCard"); }
+	void Debug3(WhichPlayer p){ Debug.Log("GameManger Trigger AddPip"); }
+	void Debug4(InSceneCard card){ Debug.Log("GameManger Trigger SpritPlay"); }
+	void Debug5(InSceneCard card){ Debug.Log("GameManger Trigger SpritFade"); }
+	void Debug6(InSceneCard card){ Debug.Log("GameManger Trigger Atack"); }
+	void Debug7(InSceneCard card){ Debug.Log("GameManger Trigger DealDamage"); }
+	void Debug8(WhichPlayer p){ Debug.Log("GameManger Trigger EndOfTurn"); }
 
 	
 	public void SetCurrentAttackType(Scrollbar slider)

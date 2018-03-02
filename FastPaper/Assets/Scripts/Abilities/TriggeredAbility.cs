@@ -14,17 +14,28 @@ public class TriggeredAbility
 	public PossibleEffects effectName;
 	public Effect effect;
 
+	public bool isTargeted;
+	public GameObject target;
+
 	public TriggeredAbility(Triggers t, PossibleEffects e)
 	{
 		trigger = t;
 		effectName = e;
+		target = null;
 	}
 
-	public void TriggerAbility(InSceneCard card)
+	public async void TriggerAbility(InSceneCard card)
 	{
 		InstantiateAbility();
+		if(isTargeted)
+		{
+			GameManager.instance.needsTarget.Enqueue(this);			
+			await () => target != null;
+		}
 		effect.OnTrigger(card);
 	}
+
+
 
 	void InstantiateAbility()
 	{

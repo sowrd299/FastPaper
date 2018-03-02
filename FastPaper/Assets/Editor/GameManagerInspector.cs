@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 [CustomEditor(typeof(GameManager))]
 public class GameManagerInspector : Editor 
@@ -18,6 +19,9 @@ public class GameManagerInspector : Editor
 
 		if(!EditorApplication.isPlaying)
 		{
+			LayerMask tempMask = EditorGUILayout.MaskField( InternalEditorUtility.LayerMaskToConcatenatedLayersMask(manager.cardLayer), InternalEditorUtility.layers);
+			manager.cardLayer = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
+			
 			manager.playerOne = EditorGUILayout.ObjectField("Player1 Object:", manager.playerOne, typeof(PlayerInfo), false) as PlayerInfo;
 			manager.playerTwo = EditorGUILayout.ObjectField("Player2 Object:", manager.playerTwo, typeof(PlayerInfo), false) as PlayerInfo;
 

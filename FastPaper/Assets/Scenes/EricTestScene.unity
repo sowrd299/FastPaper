@@ -464,7 +464,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 859050844}
-        m_MethodName: advanceTurn
+        m_MethodName: advanceTurnPublic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1096,6 +1096,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661174a7c1605914aba4e0b3c3f7e9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardLayer:
+    serializedVersion: 2
+    m_Bits: 256
   playerOne: {fileID: 11400000, guid: f62fd891a23f3ff4bb765323866038c7, type: 2}
   playerTwo: {fileID: 11400000, guid: d9b43fdc31a7f4a4e87c788fc4291271, type: 2}
   inScenePlayer1: {fileID: 1785282705}
@@ -1185,7 +1188,7 @@ Prefab:
         type: 2}
       propertyPath: deckList
       value: 
-      objectReference: {fileID: 11400000, guid: aee28a16ba70b484daa3a10aa2b0c85b,
+      objectReference: {fileID: 11400000, guid: 556f0cbfef1619746839bbb970067363,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eea113f56b651c04cb3c63ec13c41821, type: 2}
