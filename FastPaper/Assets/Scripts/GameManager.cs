@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 	public CardType currAttack;
 
 	public bool isPickingTarget;
+	public bool isWaiting;
+
 	[SerializeField]
 	private Turn currTurn;
 
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
 		currAttack = CardType.Hit;
 		canPlay = false;
 		isPickingTarget = false;
+		isWaiting = false;
 
 		StartCoroutine(runGame());
 	}
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour
 	private IEnumerator advanceTurn()
 	{
 		//Debug.Log("advance turn from " + currTurn + " to " + (currTurn+1));
-		if
+		yield return new WaitUntil( () => !isPickingTarget);
 		currTurn++;
 		if(currTurn > Turn.p2End)
 			currTurn = Turn.p1Pip;
@@ -105,11 +108,12 @@ public class GameManager : MonoBehaviour
 
 	public async Task<GameObject> pickTarget()
 	{
-		while(isPickingTarget)
+		if(isPickingTarget || isWaiting)
 		{
-			await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
+			isWaiting = true;
+			while(isWaiting && isPickingTarget)
+				await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
 		}
-		isPickingTarget = true;
 		//Debug.Log("picking target");
 		GameObject temp = null;
 		while(temp == null)
@@ -127,7 +131,10 @@ public class GameManager : MonoBehaviour
 			}
 			await Task.Delay(TimeSpan.FromSeconds(Time.deltaTime));
 		}
-		isPickingTarget = false;
+		if(isWaiting)
+			isWaiting = false;
+		else
+			isPickingTarget = false;
 		return temp;
 	}
 
