@@ -12,5 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/EricTestScene.unity
     guid: 2132194dfa32d324191e9d6966bb0544
   - enabled: 1
+    path: Assets/Scenes/NetworkingLobbyTestScene.unity
+    guid: 2145026f614bd404a94e357c2f88054a
+  - enabled: 1
     path: Assets/Scenes/NetworkingIngameTestScene.unity
     guid: 70143822d683f7d43a1c13bc5f7a4f4b

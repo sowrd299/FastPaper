@@ -7,13 +7,16 @@ using UnityEngine.Networking;
 public class NetworkedPlayer : NetworkBehaviour
 {
 	public static int numInstPlayers = 0;
+	public bool isPlayerOne;
+
 	void Awake() 
 	{
-		Debug.Log("Called");
+		DontDestroyOnLoad(gameObject);
+		Debug.Log("NetworkedPlayer Created");
 		numInstPlayers++;
 		if(numInstPlayers == 2 && Camera.main != null)
 		{
-			Camera.main.GetComponent<NetworkCamera>().isPlayerOne = false;
+			isPlayerOne = false;
 		}
 	}
 }

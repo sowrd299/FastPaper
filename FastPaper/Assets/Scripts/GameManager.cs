@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log(a.ID +" " + toTarget.Peek().ID);
 
 		GameObject temp = null;
-		int counter = 0;
+		//int counter = 0;
 		while(temp == null)
 		{
 //			Debug.Log("iswaiting for target " + counter++);

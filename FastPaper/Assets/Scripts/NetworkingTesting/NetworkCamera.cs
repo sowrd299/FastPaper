@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class NetworkCamera : NetworkBehaviour 
 {
+	
 	public bool isPlayerOne;
 	
 	void Start()
@@ -16,11 +17,11 @@ public class NetworkCamera : NetworkBehaviour
 	{
 		if(isPlayerOne)
 		{
-			this.transform.position = new Vector3(0,0,-10);
+			this.transform.position = new Vector3(0, 0, -10);
 		}
 		else
 		{
-			this.transform.position = new Vector3(50,0,-10);
+			this.transform.position = new Vector3(50, 0, -10);
 		}
 	}
 

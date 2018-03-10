@@ -16,9 +16,9 @@ public class CardNetworkManager : NetworkManager
 		NetworkManager.singleton = this;
 	}
 
-	public override void OnClientConnect(NetworkConnection conn)
+	public override void OnClientConnect(NetworkConnection connection)
 	{
-		Debug.Log("Client Connection!" + conn.ToString());
+		Debug.Log("Client Connection!" + connection.ToString());
 	}
 
 	public override void OnServerReady(NetworkConnection conn)

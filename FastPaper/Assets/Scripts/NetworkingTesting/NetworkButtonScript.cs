@@ -24,4 +24,9 @@ public class NetworkButtonScript : MonoBehaviour
 		Debug.Log("connectToLocalHost button pressed");
 		CardNetworkManager.instance.connectToLocalHost();
 	}
+
+	public void StartGame()
+	{
+		NetworkManager.singleton.ServerChangeScene("NetworkingIngameTestScene");
+	}
 }
