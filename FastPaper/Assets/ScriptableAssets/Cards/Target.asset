@@ -9,20 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13c6b5d8cf5ade4f8ea8ffbe32e076f, type: 3}
-  m_Name: Targetting Boi
+  m_Name: Target
   m_EditorClassIdentifier: 
-  name: Targetting Boi
-  flavorText: a
-  textBox: a
-  type: 0
+  name: Target
+  flavorText: 
+  textBox: 
+  type: 1
   attack: 0
-  countdown: 4
+  countdown: 99999999
   cost: 0
-  picture: {fileID: 21300000, guid: 9e297fb95cd603f4485a6ce856e6ea0b, type: 3}
-  abilities:
-  - ID: 1
-    trigger: 2
-    effectName: 1
-    parent: {fileID: 0}
-    target: {fileID: 0}
+  picture: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  abilities: []
   controllingPlayer: {fileID: 0}

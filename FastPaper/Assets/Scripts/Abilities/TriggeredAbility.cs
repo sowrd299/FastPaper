@@ -11,9 +11,13 @@ public enum PossibleEffects { Draw, CountDownTarget }
 [System.Serializable]
 public class TriggeredAbility
 {
+	public static int inst = 0;
+
+	public int ID;
 	public Triggers trigger;
 	public PossibleEffects effectName;
 	public Effect effect;
+	public InSceneCard parent;
 
 	public GameObject target;
 
@@ -26,12 +30,13 @@ public class TriggeredAbility
 
 	public async void TriggerAbility(InSceneCard card)
 	{
-		Debug.Log(1);
+		if(!ShouldTrigger(card))
+			return;
+		Debug.Log("Triggering");
 		InstantiateAbility();
-		Debug.Log(2);
 		if(effect.requiresTarget)
 		{
-			target = await GameManager.instance.pickTarget();
+			target = await GameManager.instance.pickTarget(this);
 			Debug.Log(target);
 			((TargetedEffect)effect).OnTrigger(card, target.GetComponent<InSceneCard>());
 		}
@@ -39,10 +44,25 @@ public class TriggeredAbility
 			((NonTargetedEffect)effect).OnTrigger(card);
 	}
 
+	private bool ShouldTrigger(InSceneCard card)
+	{
+		switch(trigger)
+		{
+			case Triggers.OnPersonalAttack:
+			{
+				if(card != parent)
+					return false;
+			} break;
+		}
+		return true;
+	}
 
 
 	void InstantiateAbility()
 	{
+		Debug.Log("creating ability with ID " + TriggeredAbility.inst + 1);
+		TriggeredAbility.inst++;
+		ID = TriggeredAbility.inst;
 		switch(effectName)
 		{
 			case PossibleEffects.Draw:
@@ -58,6 +78,32 @@ public class TriggeredAbility
 
 			} break;
 		}
+	}
+
+	public void SetupTrigger(InSceneCard card)
+	{
+		switch(trigger)
+			{
+				case Triggers.Opener:
+				{
+					Debug.Log("opener trigger created");
+					TriggerAbility(card);
+				} break;
+				case Triggers.Fade:
+				{
+					Debug.Log("fade trigger created");
+					GameManager.instance.onSpiritFade += TriggerAbility;
+				} break;
+				case Triggers.OnPersonalAttack:
+				{
+					Debug.Log("onattack trigger created");
+					GameManager.instance.onAttack += TriggerAbility;
+				} break;
+				default:
+				{
+
+				} break;
+			}
 	}
 
 	

@@ -76,28 +76,8 @@ public class InSceneCard : MonoBehaviour
 
 		foreach (var item in cardInfo.abilities)
 		{
-			switch(item.trigger)
-			{
-				case Triggers.Opener:
-				{
-					Debug.Log("opener trigger created");
-					item.TriggerAbility(this);
-				} break;
-				case Triggers.Fade:
-				{
-					Debug.Log("fade trigger created");
-					GameManager.instance.onSpiritFade += item.TriggerAbility;
-				} break;
-				case Triggers.OnPersonalAttack:
-				{
-					Debug.Log("onattack trigger created");
-					GameManager.instance.onAttack += item.TriggerAbility;
-				} break;
-				default:
-				{
-
-				} break;
-			}
+			item.parent = this;
+			item.SetupTrigger(this);
 		}
 	}
 

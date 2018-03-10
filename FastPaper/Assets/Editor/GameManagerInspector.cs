@@ -11,6 +11,7 @@ public class GameManagerInspector : Editor
 	protected bool playerOneFoldout = false;
 	protected bool playerTwoFoldout = false;
 	protected bool triggerFoldout = false;
+	protected bool targetFoldout = false;
 
 	public override void OnInspectorGUI()
 	{
@@ -85,6 +86,18 @@ public class GameManagerInspector : Editor
 				EditorGUILayout.LabelField(temp[x].Target.ToString());
 			EditorGUI.indentLevel--;
 
+			EditorGUI.indentLevel--;
+		}
+
+		targetFoldout = EditorGUILayout.Foldout(targetFoldout, "Targetting Abilities", false);
+		if(targetFoldout)
+		{
+			EditorGUI.indentLevel++;
+			Queue<TriggeredAbility> targetting = manager.toTarget;
+			foreach(var a in targetting)
+			{
+				EditorGUILayout.LabelField(a.effectName + " " + a.ID);
+			}
 			EditorGUI.indentLevel--;
 		}
 

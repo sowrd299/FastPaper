@@ -47,7 +47,7 @@ public class FieldHandler : MonoBehaviour, DragArea
 		
 		toAdd.transform.SetParent(toUse.transform);
 		toAdd.transform.position = new Vector3(toUse.transform.position.x,toUse.transform.position.y,-0.2f);
-		Debug.Log("Casting " + card.name);
+//		Debug.Log("Casting " + card.name);
 		GameManager.instance.onSpiritPlay(card);
 		card.Cast();
 
