@@ -27,6 +27,16 @@ public class NetworkButtonScript : MonoBehaviour
 
 	public void StartGame()
 	{
-		NetworkManager.singleton.ServerChangeScene("NetworkingIngameTestScene");
+		//if(NetworkedPlayer.numInstPlayers == 2)
+			NetworkManager.singleton.ServerChangeScene("NetworkingIngameTestScene");
+		GameManager.instance.playerOne.playerDeck.deckList = DeckManager.instance.playerOneDeck;
+		GameManager.instance.playerTwo.playerDeck.deckList = DeckManager.instance.playerTwoDeck;
 	}
+
+	public void setDeckOne(int p) { DeckManager.instance.setDeck(p, 1); }
+	public void setDeckTwo(int p) { DeckManager.instance.setDeck(p, 2); }
+	public void setDeckThree(int p) { DeckManager.instance.setDeck(p, 3); }
+	public void setDeckFour(int p) { DeckManager.instance.setDeck(p, 4); }
+
+	//private void 
 }

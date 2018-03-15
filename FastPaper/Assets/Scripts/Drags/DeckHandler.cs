@@ -13,12 +13,13 @@ public class DeckHandler : MonoBehaviour, DragArea
 
 	private GameObject cardHolder;
 
-	void Start ()
+	IEnumerator Start ()
 	{
 		deckSize = deckList.deckList.Count;
 		cards = new Queue<GameObject>();
 		cardHolder = new GameObject();
 		cardHolder.name = "CardHolder";
+		yield return new WaitUntil(() => deckList != null);
 		foreach(var cardInfo in deckList.deckList)
 		{
 			GameObject temp = Instantiate(emptyCardPrefab, offScreen, Quaternion.identity, cardHolder.transform);
